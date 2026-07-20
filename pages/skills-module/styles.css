@@ -75,8 +75,6 @@
     padding:1px 3px;border-radius:3px;scroll-margin-top:90px}
   .std.flash{animation:fls 1.6s ease}
   @keyframes fls{0%,100%{background:var(--navy-lt)}30%{background:var(--navy);color:#fff}}
-  .doctag{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.6px;
-    background:var(--chip);color:#fff;padding:1px 5px;border-radius:3px;vertical-align:1.5px;margin-left:3px;white-space:nowrap}
 
   /* callouts */
   .box{border:1px solid var(--gap-edge);border-left:5px solid var(--gap);background:var(--gap-bg);

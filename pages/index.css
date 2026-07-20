@@ -6,7 +6,7 @@
   width:600px;height:600px;background:radial-gradient(circle,rgba(234,179,8,.08) 0%,transparent 60%);pointer-events:none}
 .hero-content{position:relative;z-index:1;max-width:720px;margin:0 auto}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;
-  letter-spacing:2.5px;color:var(--primary);text-transform:uppercase;background:var(--primary-bg);
+  letter-spacing:2.5px;color:var(--primary-hover);text-transform:uppercase;background:var(--primary-bg);
   border:1px solid var(--primary);border-radius:100px;padding:6px 18px;margin-bottom:24px}
 .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--primary);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
@@ -36,21 +36,23 @@
 .card:nth-child(3) .card-icon{background:rgba(31,78,121,.15);color:#5B9BD5}
 [data-theme="dark"] .card:nth-child(3) .card-icon{background:rgba(91,155,213,.15)}
 .card-tag{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--text-dis);margin-bottom:8px}
+  color:var(--text-sec);margin-bottom:8px}
 .card h2{font-size:20px;font-weight:700;margin-bottom:10px;line-height:1.3}
 .card p{font-size:14px;color:var(--text-sec);line-height:1.6;flex:1}
 .card-footer{display:flex;align-items:center;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
 .card-cta{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
   transition:color .2s ease}
 .card:nth-child(1) .card-cta{color:var(--primary)}
-.card:nth-child(2) .card-cta{color:var(--warning-dim)}
+.card:nth-child(2) .card-cta{color:#a16207}
 [data-theme="dark"] .card:nth-child(2) .card-cta{color:var(--warning)}
-.card:nth-child(3) .card-cta{color:#5B9BD5}
+.card:nth-child(3) .card-cta{color:#2f6ca8}
+[data-theme="dark"] .card:nth-child(3) .card-cta{color:#5B9BD5}
 .card-arrow{font-size:16px;transition:transform .25s ease}
 .card:nth-child(1) .card-arrow{color:var(--primary)}
-.card:nth-child(2) .card-arrow{color:var(--warning-dim)}
+.card:nth-child(2) .card-arrow{color:#a16207}
 [data-theme="dark"] .card:nth-child(2) .card-arrow{color:var(--warning)}
-.card:nth-child(3) .card-arrow{color:#5B9BD5}
+.card:nth-child(3) .card-arrow{color:#2f6ca8}
+[data-theme="dark"] .card:nth-child(3) .card-arrow{color:#5B9BD5}
 .card:hover .card-arrow{transform:translateX(4px)}
 
 /* ── STATS BAR ──────────────────────────────────────── */
@@ -58,10 +60,10 @@
 .stats-inner{display:flex;justify-content:center;gap:48px;padding:28px 32px;
   background:var(--surface);border:1px solid var(--line);border-radius:14px;flex-wrap:wrap}
 .stat{text-align:center}
-.stat .num{font-family:var(--mono);font-size:28px;font-weight:700;color:var(--warning-dim);letter-spacing:-1px}
+.stat .num{font-family:var(--mono);font-size:28px;font-weight:700;color:#a16207;letter-spacing:-1px}
 [data-theme="dark"] .stat .num{color:var(--warning)}
-.stat .lbl{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--text-dis);text-transform:uppercase;margin-top:4px}
+.stat .lbl{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--text-sec);text-transform:uppercase;margin-top:4px}
 
 /* ── FOOTER ─────────────────────────────────────────── */
 footer{border-top:1px solid var(--line);padding:28px 24px;text-align:center}
-footer p{font-family:var(--mono);font-size:11px;color:var(--text-dis);letter-spacing:1px}
+footer p{font-family:var(--mono);font-size:11px;color:var(--text-sec);letter-spacing:1px}

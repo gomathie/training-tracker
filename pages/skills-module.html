@@ -74,7 +74,7 @@
     <p><b>Revision 4.</b> Modules A–D are a <b>supplement</b>. The two existing training plans are internal, authoritative, and correct — no flow, step, sequence or terminology from them has been altered or contradicted here. Everything below is additive.</p>
 
     <div class="box">
-      <p>Passages marked <span class="doctag">7.9 GUIDE</span> come from the public PILOT user guide, version 7.9. <b>Treat them as a reference, not an authority.</b> PILOT ships more than one manual, they are versioned independently, and customers may not be on the latest build — see <a href="#docmap">Documentation map</a>. Where the public guide and the internal plans differ, the plans win.</p>
+      <p>Some passages draw on the public PILOT user guide. <b>Treat it as a reference, not an authority.</b> PILOT ships more than one manual, they are versioned independently, and customers may not be on the latest build — see <a href="#docmap">Documentation map</a>. Where the public guide and the internal plans differ, the plans win.</p>
       <p>Passages marked <span class="std">like this</span> are pre-filled with <b>common telematics-industry defaults</b>. They are safe starting points, not verified local facts — confirm each against your own processes before delivery. Use the <b>defaults</b> button in the header to review every one in a list. The governing rule for anything you cannot resolve or authorise yourself is simple: <b>contact your head of technical support.</b></p>
     </div>
 
@@ -146,7 +146,7 @@
     <div class="tw"><table>
       <thead><tr><th style="width:150px">Instrument</th><th style="width:170px">Where</th><th>The question it answers</th></tr></thead>
       <tbody>
-        <tr><td class="k">Sensors tracing<span class="doctag">7.9 GUIDE</span></td><td>Right-click an object → Sensors tracing</td><td><b>What did the device actually send?</b> Raw, unprocessed data in real time: exact time of reception, latitude/longitude/altitude, speed, direction, <b>number of satellites</b>, and readings from additional sensors (temperature, fuel, battery, pressure). Table or chart, and downloadable.</td></tr>
+        <tr><td class="k">Sensors tracing</td><td>Right-click an object → Sensors tracing</td><td><b>What did the device actually send?</b> Raw, unprocessed data in real time: exact time of reception, latitude/longitude/altitude, speed, direction, <b>number of satellites</b>, and readings from additional sensors (temperature, fuel, battery, pressure). Table or chart, and downloadable.</td></tr>
         <tr><td class="k">Audit history</td><td>Admin panel → object → Audit</td><td><b>What changed, and who changed it?</b> Logs changes to settings on the object. Use it to check the customer's "nothing changed" claim.</td></tr>
         <tr><td class="k">Admin reports</td><td>Admin panel → Admin section</td><td><b>Did they even reach us?</b> Failed Login Attempts (username, number of attempts, times), Login History, Blocked Users, Disabled Users, Password Reset, User Activity.</td></tr>
       </tbody>
@@ -164,10 +164,10 @@
         <tr><td class="k">1</td><td><b>Access &amp; rights</b></td><td>Can't log in; can't see an object</td><td>Admin → <b>Failed Login Attempts</b>, <b>Blocked Users</b>, <b>Disabled Users</b>. Then the user's rights.</td></tr>
         <tr><td class="k">2</td><td><b>Contract &amp; modules</b></td><td>Feature or menu item entirely absent</td><td>Admin panel → contract → Modules. <b>The actions available in the object right-click menu depend on the modules in the contract</b> — a "missing button" is usually this, not a bug.</td></tr>
         <tr><td class="k">3</td><td><b>Interface &amp; filters</b></td><td>"It's gone" but it isn't</td><td>Object list filters, group selection, column config, date range.</td></tr>
-        <tr><td class="k">4</td><td><b>Object configuration</b></td><td>One object wrong or silent</td><td>Object card, tariff, device ID/type, and <b>Temporary blocking</b> — an object deliberately suspended (e.g. seasonal equipment) looks exactly like a fault.<span class="doctag">7.9 GUIDE</span></td></tr>
+        <tr><td class="k">4</td><td><b>Object configuration</b></td><td>One object wrong or silent</td><td>Object card, tariff, device ID/type, and <b>Temporary blocking</b> — an object deliberately suspended (e.g. seasonal equipment) looks exactly like a fault.</td></tr>
         <tr><td class="k">5</td><td><b>Sensor configuration</b></td><td>Data arrives, numbers are wrong</td><td>Field mapping, <b>conversion formula</b>, calibration table. Confirm against Sensors tracing.</td></tr>
         <tr><td class="k">6</td><td><b>Device &amp; data flow</b></td><td>No data, or bad data, from one unit</td><td><b>Sensors tracing</b> (time of last reception, satellites), <b>Connection Lost</b> report (where and when connection dropped, duration, address), <b>Devices offline</b> report.</td></tr>
-        <tr><td class="k">7</td><td><b>Relay &amp; integration</b><span class="doctag">7.9 GUIDE</span></td><td>Data fine in PILOT, missing in the customer's own system</td><td>Admin → <b>Statistics</b>: check <b>Queue</b>, <b>Err</b>, <b>Send</b>, <b>Ack</b>. See B5.</td></tr>
+        <tr><td class="k">7</td><td><b>Relay &amp; integration</b></td><td>Data fine in PILOT, missing in the customer's own system</td><td>Admin → <b>Statistics</b>: check <b>Queue</b>, <b>Err</b>, <b>Send</b>, <b>Ack</b>. See B5.</td></tr>
       </tbody>
     </table></div>
     <p><b>Rule of thumb:</b> affects everything → layers 1–2. Affects one object → 4–6. Affects one screen → layer 3. Fine in PILOT but missing downstream → layer 7. Scope tells you where to start; that's why the Scope question in Module A comes first.</p>
@@ -178,12 +178,12 @@
       <li><b>Establish scope.</b> One object / one user / everything. This selects your layer.</li>
       <li><b>Bisect.</b> Cut the problem in half. Does another user see it? Does another object have it? Did it work yesterday? Every answer halves the search space.</li>
       <li><b>Change one thing at a time.</b> Two changes at once means you learn nothing from the result.</li>
-      <li><b>Fix the config — then fix the history.</b> Correcting a formula or calibration table changes <em>new</em> data only. Historical reports stay wrong until you run <b>Recalculate</b> (specify the agent, choose the recalculation type, set the period, run, then re-check the report).<span class="doctag">7.9 GUIDE</span> Telling a customer "fixed" without recalculating guarantees a callback.</li>
+      <li><b>Fix the config — then fix the history.</b> Correcting a formula or calibration table changes <em>new</em> data only. Historical reports stay wrong until you run <b>Recalculate</b> (specify the agent, choose the recalculation type, set the period, run, then re-check the report). Telling a customer "fixed" without recalculating guarantees a callback.</li>
       <li><b>Confirm the fix with the customer</b>, not with yourself. "Refresh and tell me what you see now."</li>
       <li><b>Record the cause</b>, not just the fix. <span class="std">Write it up as a KCS article in the team knowledge base (see D3) — the helpdesk's linked knowledge base, or PILOT's own FAQ / uploaded-documents area. If no store exists yet, your head of technical support can point you to where known issues live.</span></li>
     </ol>
     <div class="box good">
-      <p><b>The Master status trap — teach this explicitly.</b><span class="doctag">7.9 GUIDE</span></p>
+      <p><b>The Master status trap — teach this explicitly.</b></p>
       <p>The user guide describes a <b>Master status</b>, granted on admin-panel login, carrying unlimited rights in the system.</p>
       <p>Whatever it is called in your build, the operational consequence is what matters: <b>"it works for me" proves nothing about the customer's experience.</b> A large share of rights-related cases are simply invisible from a support login. Reproduce as the user, or check that user's rights directly — never conclude from your own session.</p>
     </div>
@@ -209,7 +209,7 @@
         <li>Does it exist in the admin panel at all?</li>
         <li>Does <b>this user</b> have rights to it? Remember the Master trap — check their rights, don't check your own view.</li>
         <li>Is a filter, group selection, or column config hiding it? (layer 3)</li>
-        <li>Is <b>Temporary blocking</b> switched on? A suspended object is intentional, not a fault — and the customer's colleague may have done it to stop the subscription charge.<span class="doctag">7.9 GUIDE</span></li>
+        <li>Is <b>Temporary blocking</b> switched on? A suspended object is intentional, not a fault — and the customer's colleague may have done it to stop the subscription charge.</li>
         <li>Was it moved to another contract, or deleted? Deleting an object removes all its data and history; restoring requires a system administrator.</li>
       </ol>
     </div>
@@ -219,10 +219,10 @@
       <ol>
         <li>Open <b>Sensors tracing</b>. Is data arriving, and what is the raw value? This single step decides everything that follows.</li>
         <li>Raw value is wrong or absent → the problem is layer 6 (device), not configuration. Stop tuning formulas.</li>
-        <li>Raw value is correct but the display is wrong → layer 5. Check the field mapping first, then the <b>conversion formula</b>, then the calibration table — <b>in that order, because that is the order the system applies them.</b> The guide is explicit: the formula runs on the data as soon as it arrives from the sensor, <em>before</em> the calibration table. Debugging the table while a formula is quietly mangling its input is wasted time.<span class="doctag">7.9 GUIDE</span></li>
-        <li>Use the <b>Test</b> button on the formula field rather than reasoning about it. It lets you feed in real or chosen values and shows the result.<span class="doctag">7.9 GUIDE</span></li>
-        <li>Check the calibration table's two switches: <b>Select nearest value</b> (round to the closest calibration point, versus interpolating between surrounding points) and <b>Calibration first</b> (check the table first; fall back to the standard algorithm if no exact match). These quietly change results and are a common cause of "close but wrong."<span class="doctag">7.9 GUIDE</span></li>
-        <li><b>Numbers intermittently absent rather than wrong?</b> Look for a division in the formula. If the divisor can arrive as 0 or undefined, the calculation errors — the documented fix is a conditional guard on the divisor.<span class="doctag">7.9 GUIDE</span></li>
+        <li>Raw value is correct but the display is wrong → layer 5. Check the field mapping first, then the <b>conversion formula</b>, then the calibration table — <b>in that order, because that is the order the system applies them.</b> The guide is explicit: the formula runs on the data as soon as it arrives from the sensor, <em>before</em> the calibration table. Debugging the table while a formula is quietly mangling its input is wasted time.</li>
+        <li>Use the <b>Test</b> button on the formula field rather than reasoning about it. It lets you feed in real or chosen values and shows the result.</li>
+        <li>Check the calibration table's two switches: <b>Select nearest value</b> (round to the closest calibration point, versus interpolating between surrounding points) and <b>Calibration first</b> (check the table first; fall back to the standard algorithm if no exact match). These quietly change results and are a common cause of "close but wrong."</li>
+        <li><b>Numbers intermittently absent rather than wrong?</b> Look for a division in the formula. If the divisor can arrive as 0 or undefined, the calculation errors — the documented fix is a conditional guard on the divisor.</li>
         <li>Was the number ever right, or wrong from day one? Check <b>Audit history</b> for a settings change that lines up with the date.</li>
         <li>After fixing: run <b>Recalculate</b> for the affected period, or the customer's reports stay wrong.</li>
       </ol>
@@ -234,12 +234,12 @@
       <ol>
         <li>Is the <b>Notifications</b> module active on the contract? Without it there is no Notifications tab at all.</li>
         <li>Does the notification exist?</li>
-        <li><b>Is the object or tag actually selected in it?</b> A notification applies to specific objects or to a tag group. A vehicle added later is not covered automatically.<span class="doctag">7.9 GUIDE</span></li>
-        <li><b>Check the notification's time window</b> — time zone, days of the week, and time intervals. A rule set for weekdays 09:00–18:00 is silent on a Saturday and looks broken. This is the single most-missed cause.<span class="doctag">7.9 GUIDE</span></li>
-        <li><b>Check the geofence scope</b> if the Geofences module is active: Anywhere / In selected zones / Outside selected zones.<span class="doctag">7.9 GUIDE</span></li>
-        <li><b>Check the "For all users" flag.</b> If off, colleagues won't receive it — which is exactly the shape of "my manager gets them and I don't."<span class="doctag">7.9 GUIDE</span></li>
-        <li>Check the delivery method: SMS, Push, Email, Alert (in-system pop-up), Control Room, Webhook, Command, Command template, or Telegram.<span class="doctag">7.9 GUIDE</span></li>
-        <li>For email: is the address <b>verified</b>? The public guide places this under Account settings → Privacy → Notification settings; your plan calls the same area contract settings. Same place, house vocabulary.<span class="doctag">7.9 GUIDE</span></li>
+        <li><b>Is the object or tag actually selected in it?</b> A notification applies to specific objects or to a tag group. A vehicle added later is not covered automatically.</li>
+        <li><b>Check the notification's time window</b> — time zone, days of the week, and time intervals. A rule set for weekdays 09:00–18:00 is silent on a Saturday and looks broken. This is the single most-missed cause.</li>
+        <li><b>Check the geofence scope</b> if the Geofences module is active: Anywhere / In selected zones / Outside selected zones.</li>
+        <li><b>Check the "For all users" flag.</b> If off, colleagues won't receive it — which is exactly the shape of "my manager gets them and I don't."</li>
+        <li>Check the delivery method: SMS, Push, Email, Alert (in-system pop-up), Control Room, Webhook, Command, Command template, or Telegram.</li>
+        <li>For email: is the address <b>verified</b>? The public guide places this under Account settings → Privacy → Notification settings; your plan calls the same area contract settings. Same place, house vocabulary.</li>
         <li>Finally: spam folder.</li>
       </ol>
       <p class="note">work outside-in: module → rule → scope → schedule → delivery → mailbox</p>
@@ -257,7 +257,7 @@
       </ol>
     </div>
 
-    <h3 id="b5">B5. Layer 7: data reaching PILOT but not the customer's own system<span class="doctag">7.9 GUIDE</span></h3>
+    <h3 id="b5">B5. Layer 7: data reaching PILOT but not the customer's own system</h3>
     <p>Customers who relay data to an external system (their own ERP, a municipal platform, a partner) produce a distinct class of ticket: <b>the data is correct in PILOT and missing downstream.</b> It is not diagnosable with any of the layers above, and it is the one area where the public guide has a troubleshooting page of its own.</p>
     <p>Start at Admin → <b>Statistics</b> and read four metrics:</p>
     <div class="tw"><table>
@@ -530,7 +530,7 @@
     </ol>
 
     <hr>
-    <p style="font-size:12.5px;color:var(--dim)">Sources for passages marked <span class="doctag">7.9 GUIDE</span>: PILOT User guide v7.9 — Roles and access rights; Object menu; How to apply formulas; Sensor handlers; How to create a notification; How to set up notification delivery; Audit and Audit history; Failed Login Attempts; Connection Lost; Raw data; Recalculate; Troubleshooting; Statistics. Industry practice: ITIL 4; KCS (Consortium for Service Innovation); EDPB Guidelines 01/2020 on connected vehicles; Ghana Data Protection Act 2012 (Act 843).</p>
+    <p style="font-size:12.5px;color:var(--dim)">Sources drawn on in this supplement: PILOT User guide v7.9 — Roles and access rights; Object menu; How to apply formulas; Sensor handlers; How to create a notification; How to set up notification delivery; Audit and Audit history; Failed Login Attempts; Connection Lost; Raw data; Recalculate; Troubleshooting; Statistics. Industry practice: ITIL 4; KCS (Consortium for Service Innovation); EDPB Guidelines 01/2020 on connected vehicles; Ghana Data Protection Act 2012 (Act 843).</p>
   </article>
 </div>
 
