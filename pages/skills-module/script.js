@@ -1,7 +1,7 @@
-/* gap index */
-const fills = [...document.querySelectorAll('.fill')];
+/* standard-defaults index (formerly gaps) */
+const fills = [...document.querySelectorAll('.std')];
 fills.forEach((f,i)=>{ f.id = 'gap-' + i; });
-document.getElementById('gapbtn').textContent = fills.length + ' gaps to fill';
+document.getElementById('gapbtn').textContent = fills.length + ' standard defaults';
 document.getElementById('dn').textContent = fills.length + ' total';
 
 function sectionOf(el){
@@ -21,7 +21,8 @@ const list = document.getElementById('dlist');
 fills.forEach((f,i)=>{
   const b = document.createElement('button');
   b.className = 'gi';
-  const txt = f.textContent.replace(/^\[FILL IN:?\s*/,'').replace(/\]$/,'') || 'unspecified';
+  let txt = f.textContent.replace(/^\[FILL IN:?\s*/,'').replace(/\]$/,'').trim() || 'unspecified';
+  if(txt.length > 110) txt = txt.slice(0, 108).trimEnd() + '…';
   b.innerHTML = '<span class="sec">' + sectionOf(f) + '</span>' + txt;
   b.addEventListener('click', ()=>{
     closeDrawer();

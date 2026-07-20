@@ -70,6 +70,11 @@
   .fill{color:var(--gap);font-weight:700;background:var(--gap-bg);padding:1px 4px;border-radius:3px;scroll-margin-top:90px}
   .fill.flash{animation:fl 1.6s ease}
   @keyframes fl{0%,100%{background:var(--gap-bg)}30%{background:var(--gap-edge)}}
+  /* std = industry-standard default filled in; confirm locally */
+  .std{color:var(--navy);background:var(--navy-lt);border-bottom:1px dotted var(--navy);
+    padding:1px 3px;border-radius:3px;scroll-margin-top:90px}
+  .std.flash{animation:fls 1.6s ease}
+  @keyframes fls{0%,100%{background:var(--navy-lt)}30%{background:var(--navy);color:#fff}}
   .doctag{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.6px;
     background:var(--chip);color:#fff;padding:1px 5px;border-radius:3px;vertical-align:1.5px;margin-left:3px;white-space:nowrap}
 

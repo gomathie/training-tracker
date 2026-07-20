@@ -2,7 +2,7 @@ const DATA = [
   {
     id: "prep", flag: "PREP", title: "Before delivery \u2014 information to gather (blocks Modules C & D)",
     days: [
-      { n:"Blocking", t:"Needed before Module C or D can be taught", topics:"These are the [FILL IN] gaps. Most need answers from team leads, not from the trainer. Ordered by how much they block.",
+      { n:"Blocking", t:"Needed before Module C or D can be taught", topics:"These are the company-specific gaps. Most need answers from team leads, not from the trainer — the Skills Module now proposes an industry-standard default for each; confirm them, and escalate anything unresolved to your head of technical support. Ordered by how much they block.",
         items:[
           "Ticketing system: name, required fields, priority definitions, response targets",
           "Team contact map \u2014 names, channels, ownership boundaries \u2014 including who owns layer 7 / relay tickets",

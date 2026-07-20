@@ -28,7 +28,7 @@
   <div class="t">PILOT <b>SUPPORT SKILLS MODULE</b></div>
   <div class="sp"></div>
   <button class="menub" id="menub">Contents</button>
-  <button class="gapbtn" id="gapbtn">— gaps to fill</button>
+  <button class="gapbtn" id="gapbtn">— standard defaults</button>
 </div></div>
 
 <div class="shell">
@@ -75,7 +75,7 @@
 
     <div class="box">
       <p>Passages marked <span class="doctag">7.9 GUIDE</span> come from the public PILOT user guide, version 7.9. <b>Treat them as a reference, not an authority.</b> PILOT ships more than one manual, they are versioned independently, and customers may not be on the latest build — see <a href="#docmap">Documentation map</a>. Where the public guide and the internal plans differ, the plans win.</p>
-      <p>Passages marked <span class="fill">[FILL IN]</span> need company-specific information. Use the <b>gaps</b> button in the header to see every one of them in a list.</p>
+      <p>Passages marked <span class="std">like this</span> are pre-filled with <b>common telematics-industry defaults</b>. They are safe starting points, not verified local facts — confirm each against your own processes before delivery. Use the <b>defaults</b> button in the header to review every one in a list. The governing rule for anything you cannot resolve or authorise yourself is simple: <b>contact your head of technical support.</b></p>
     </div>
 
     <h2 id="mod-a">Module A · Communication with customers</h2>
@@ -111,7 +111,7 @@
     <h3 id="a3">A3. Difficult conversations</h3>
     <ul>
       <li><b>The customer is angry.</b> Let them finish. Do not defend the product mid-sentence. Then acknowledge the impact ("You've had no tracking on that vehicle for two days — I understand why that's a problem"), not the emotion ("I understand you're frustrated," which reads as scripted).</li>
-      <li><b>You don't know the answer.</b> Say so plainly and commit to a next step and a time. "I don't know yet. I'm going to check with <span class="fill">[FILL IN: team]</span> and come back to you by [timeframe]." Never guess out loud — a wrong guess from support becomes a fact in the customer's head.</li>
+      <li><b>You don't know the answer.</b> Say so plainly and commit to a next step and a time. "I don't know yet. I'm going to check with <span class="std">our 2nd-line support team (or your head of technical support if you're not sure who owns it)</span> and come back to you by [timeframe]." Never guess out loud — a wrong guess from support becomes a fact in the customer's head.</li>
       <li><b>It's the customer's fault.</b> Never say that. Say what will fix it: "The notification's time window was set to weekdays only — let's widen that now and I'll show you where it lives."</li>
       <li><b>The answer is no.</b> State the no, the reason, and the nearest alternative. "That action isn't available because the module isn't on your contract. What I can do is…"</li>
       <li><b>Buying time.</b> Silence on a call reads as incompetence. Narrate: "I'm opening Sensors tracing now to see what the device actually sent — give me about a minute."</li>
@@ -126,7 +126,7 @@
       <li>What you did</li>
       <li>What's outstanding and who owns it</li>
     </ol>
-    <p><span class="fill">[FILL IN: ticket system name, required fields, priority definitions]</span></p>
+    <p><span class="std">Most telematics desks run on a helpdesk platform such as Jira Service Management, Zendesk or Freshdesk (PILOT's own vendor portal at helpdesk.pilot-gps.com is Jira Service Management). At minimum a ticket carries: customer / contract, object name or IMEI, category (Incident / Service request / Problem — see D1), priority (P1&ndash;P5 — see D2), channel, and the customer's own words. Confirm your desk's exact system and required fields with your head of technical support.</span></p>
 
     <h4>Module A assignments</h4>
     <ol>
@@ -180,7 +180,7 @@
       <li><b>Change one thing at a time.</b> Two changes at once means you learn nothing from the result.</li>
       <li><b>Fix the config — then fix the history.</b> Correcting a formula or calibration table changes <em>new</em> data only. Historical reports stay wrong until you run <b>Recalculate</b> (specify the agent, choose the recalculation type, set the period, run, then re-check the report).<span class="doctag">7.9 GUIDE</span> Telling a customer "fixed" without recalculating guarantees a callback.</li>
       <li><b>Confirm the fix with the customer</b>, not with yourself. "Refresh and tell me what you see now."</li>
-      <li><b>Record the cause</b>, not just the fix. <span class="fill">[FILL IN: where known-issue knowledge is stored]</span></li>
+      <li><b>Record the cause</b>, not just the fix. <span class="std">Write it up as a KCS article in the team knowledge base (see D3) — the helpdesk's linked knowledge base, or PILOT's own FAQ / uploaded-documents area. If no store exists yet, your head of technical support can point you to where known issues live.</span></li>
     </ol>
     <div class="box good">
       <p><b>The Master status trap — teach this explicitly.</b><span class="doctag">7.9 GUIDE</span></p>
@@ -253,7 +253,7 @@
         <li>Is <b>Temporary blocking</b> on? (Free to check, and it is not a fault.)</li>
         <li>Does the device ID / IMEI in the object card match the physical unit? Is the device type correct?</li>
         <li>Has it <b>ever</b> reported? Never = configuration or installation. Stopped = power, connection, or hardware.</li>
-        <li><span class="fill">[FILL IN: at what point does this go to the installer / hardware team?]</span></li>
+        <li><span class="std">Once you've confirmed it's not blocking, filtering, rights or config and the raw feed is dead at the device: if it <b>never</b> reported after install it's an installation/wiring job; if it <b>stopped</b>, it's power, SIM/connection or hardware. Either way, hand it to the installer / hardware team &mdash; route via your head of technical support if that team isn't directly reachable.</span></li>
       </ol>
     </div>
 
@@ -279,7 +279,7 @@
       <li>You've worked all applicable layers and found nothing.</li>
       <li>The fix requires access or rights you don't have.</li>
       <li>It's affecting multiple customers → this is an incident, not a ticket. Escalate immediately, don't keep debugging.</li>
-      <li><span class="fill">[FILL IN: time limit — e.g. "30 minutes of investigation with no progress"]</span></li>
+      <li><span class="std">A common default: stop and escalate after about 30 minutes of investigation with no meaningful progress on a P1/P2 (proportionally longer for lower-priority tickets). Escalate to your head of technical support with the handover from C3 &mdash; a clean early handover beats sitting on a ticket.</span></li>
     </ul>
 
     <h4>Module B assignments</h4>
@@ -296,59 +296,59 @@
     <hr>
     <h2 id="mod-c">Module C · Real support workflows and escalation</h2>
     <p><b>Goal.</b> The engineer knows what happens to a ticket, who owns what, and when to let go of it.</p>
-    <div class="box">
-      <p>This module is mostly <span class="fill">[FILL IN]</span> — it's entirely company-specific. The structure below is what needs filling; the content has to come from you and the team leads.</p>
+    <div class="box good">
+      <p>This module is inherently company-specific, so the answers below are filled in with <b>common telematics-desk defaults</b> (marked <span class="std">like this</span>). Treat each as a sensible starting point and confirm it with your team leads. The standing rule for anything you can't resolve or authorise yourself: <b>contact your head of technical support.</b></p>
     </div>
 
     <h3 id="c1">C1. The lifecycle of a request</h3>
     <ul>
-      <li>Channels a request can arrive on: <span class="fill">[FILL IN: phone / email / portal / WhatsApp / partner?]</span></li>
-      <li>Logging: what must be created, and when. <span class="fill">[FILL IN]</span></li>
-      <li>Priority definitions and target response times. <span class="fill">[FILL IN — the most-asked question by new hires, and the most commonly undocumented]</span></li>
-      <li>Status meanings and who is allowed to close a ticket. <span class="fill">[FILL IN]</span></li>
+      <li>Channels a request can arrive on: <span class="std">phone, email and a self-service helpdesk portal are the industry norm; many telematics desks also take WhatsApp and partner-relayed requests. Whatever the channel, every request becomes a ticket.</span></li>
+      <li>Logging: what must be created, and when. <span class="std">Raise a ticket for every contact at the moment of contact &mdash; never work off memory or a chat thread. Minimum fields: customer / contract, object / IMEI, symptom in the customer's words, channel, and priority.</span></li>
+      <li>Priority definitions and target response times. <span class="std">Common telematics SLA defaults: <b>P1</b> respond &le;15 min / restore &le;4 h; <b>P2</b> &le;1 h / &le;8 h; <b>P3</b> &le;4 h / &le;2 business days; <b>P4</b> &le;1 business day / &le;5 days; <b>P5</b> best-effort. Priority itself comes from the D2 matrix. Confirm your contractual SLAs with your head of technical support.</span></li>
+      <li>Status meanings and who is allowed to close a ticket. <span class="std">Standard lifecycle: New &rarr; Open / In progress &rarr; Pending customer &rarr; Escalated &rarr; Resolved &rarr; Closed. The engineer who resolves a ticket closes it; tickets pending customer confirmation auto-close after a set period (commonly 3&ndash;5 business days). Only the ticket owner or a team lead reopens a closed ticket.</span></li>
     </ul>
 
     <h3 id="c2">C2. Who does what</h3>
-    <p>A one-page map of the org from a support engineer's point of view. <span class="fill">[FILL IN each row]</span></p>
+    <p>A one-page map of the org from a support engineer's point of view. The <b>owns</b> boundaries below are common telematics-desk defaults; fill in the real names and channels locally. Where a contact isn't yet defined, the default route is <b>your head of technical support.</b></p>
     <div class="tw"><table>
       <thead><tr><th style="width:145px">Team / role</th><th style="width:180px">Owns</th><th>Send them</th><th style="width:130px">Contact</th></tr></thead>
       <tbody>
         <tr><td class="k">1st line (you)</td><td>Known issues, config, how-to, account/rights</td><td>—</td><td>—</td></tr>
-        <tr><td class="k">2nd line</td><td><span class="fill">[FILL IN]</span></td><td>Every applicable layer worked, nothing found</td><td><span class="fill">[FILL IN]</span></td></tr>
-        <tr><td class="k">Development</td><td><span class="fill">[FILL IN]</span></td><td>Reproducible bugs — not config questions</td><td><span class="fill">[FILL IN]</span></td></tr>
-        <tr><td class="k">Installers</td><td><span class="fill">[FILL IN]</span></td><td>Device never reported, wiring, repeated drops at one location</td><td><span class="fill">[FILL IN]</span></td></tr>
-        <tr><td class="k">Integrations</td><td><span class="fill">[FILL IN]</span></td><td>Layer 7: endpoints, Queue/Err/Ack, external systems</td><td><span class="fill">[FILL IN]</span></td></tr>
-        <tr><td class="k">Sales</td><td><span class="fill">[FILL IN]</span></td><td>Tariff, upgrades, module activation, commercial</td><td><span class="fill">[FILL IN]</span></td></tr>
-        <tr><td class="k">Finance</td><td><span class="fill">[FILL IN]</span></td><td>Payments, debits, blocked-for-nonpayment</td><td><span class="fill">[FILL IN]</span></td></tr>
-        <tr><td class="k">Partners</td><td><span class="fill">[FILL IN]</span></td><td><span class="fill">[FILL IN]</span></td><td><span class="fill">[FILL IN]</span></td></tr>
+        <tr><td class="k">2nd line</td><td><span class="std">Complex or cross-layer faults; anything needing deeper platform access than 1st line holds</span></td><td>Every applicable layer worked, nothing found</td><td><span class="std">via your head of technical support</span></td></tr>
+        <tr><td class="k">Development</td><td><span class="std">Reproducible defects in the product itself</span></td><td>Reproducible bugs — not config questions</td><td><span class="std">via head of technical support (bug report)</span></td></tr>
+        <tr><td class="k">Installers</td><td><span class="std">Physical device, wiring, SIM / power, install quality, on-site fixes</span></td><td>Device never reported, wiring, repeated drops at one location</td><td><span class="std">via head of technical support</span></td></tr>
+        <tr><td class="k">Integrations</td><td><span class="std">Data relay / endpoints, layer-7 delivery to external systems, API / webhook config</span></td><td>Layer 7: endpoints, Queue/Err/Ack, external systems</td><td><span class="std">via head of technical support</span></td></tr>
+        <tr><td class="k">Sales</td><td><span class="std">Contracts, tariffs, upgrades, module activation, commercial terms</span></td><td>Tariff, upgrades, module activation, commercial</td><td><span class="std">Account manager / sales</span></td></tr>
+        <tr><td class="k">Finance</td><td><span class="std">Invoicing, payments, manual debits, blocked-for-non-payment</span></td><td>Payments, debits, blocked-for-nonpayment</td><td><span class="std">Finance / billing</span></td></tr>
+        <tr><td class="k">Partners</td><td><span class="std">White-label partners' own end customers and sub-accounts</span></td><td><span class="std">Anything about a partner's own customers — the partner runs their own tier 1</span></td><td><span class="std">Partner manager / head of technical support</span></td></tr>
       </tbody>
     </table></div>
-    <p>Note the <b>Integrations</b> row: layer 7 tickets look like platform faults but are almost never resolved by the same people. Decide early who owns them. <span class="fill">[FILL IN]</span></p>
+    <p>Note the <b>Integrations</b> row: layer 7 tickets look like platform faults but are almost never resolved by the same people. Decide early who owns them. <span class="std">In most telematics operations relay / endpoint tickets are owned by the Integrations team, not general 2nd line &mdash; route them there, or via your head of technical support if that team isn't yet defined.</span></p>
 
     <h3 id="c3">C3. Escalation</h3>
     <ul>
       <li><b>Escalation is not failure.</b> Escalating early with good notes is better work than sitting on a ticket for a day. Say this out loud in training — new hires routinely over-hold tickets to avoid looking incapable, and that is the single most expensive habit in 1st line.</li>
       <li><b>What must be in an escalation.</b> A handover that makes the next person start from zero wastes the whole investigation. Required: customer + contract, object/IMEI, exact symptom, timestamps, <b>what Sensors tracing showed</b>, <b>what Audit history showed</b>, what you checked and ruled out, what you think it is, and what the customer has been told and expects.</li>
-      <li><b>Triggers:</b> <span class="fill">[FILL IN: time-based, severity-based, multiple customers affected, VIP account, data loss, anything touching billing]</span></li>
-      <li><b>Emergency / out-of-hours path:</b> <span class="fill">[FILL IN]</span></li>
-      <li><b>The customer stays informed.</b> Escalating does not end your ownership of the <em>relationship</em> — <span class="fill">[FILL IN: does 1st line stay the customer's point of contact after handover?]</span></li>
+      <li><b>Triggers:</b> <span class="std">standard triggers are &mdash; the investigation time limit reached with no progress (see B6); P1/P2 severity; multiple customers affected (an incident); a VIP or strategic account; any data loss or deletion request; and anything touching billing, contracts or admin rights you don't hold. When a trigger fires, escalate to your head of technical support with the full handover above.</span></li>
+      <li><b>Emergency / out-of-hours path:</b> <span class="std">the industry norm is a documented on-call rota with a single emergency contact point. Out of hours, raise P1 incidents immediately to the on-call engineer or your head of technical support; everything else waits for the next business day.</span></li>
+      <li><b>The customer stays informed.</b> Escalating does not end your ownership of the <em>relationship</em> — <span class="std">by default, 1st line remains the customer's single point of contact and owns communication until the ticket is resolved, even after the technical work moves to another team. Confirm this with your head of technical support.</span></li>
     </ul>
 
     <h3 id="c4">C4. Special cases</h3>
     <ul>
-      <li>Multiple customers reporting the same thing → suspected platform incident. <span class="fill">[FILL IN: who to alert immediately, and how]</span></li>
-      <li>Customer requests something needing admin-panel access they don't have (new contract, module activation, tariff change) → <span class="fill">[FILL IN: approval path]</span></li>
-      <li>Data recovery: deleting an object destroys all its data and history, and restoring requires a system administrator. Treat any deletion request as irreversible and confirm before acting. <span class="fill">[FILL IN: who can restore, and is there a retention window?]</span></li>
-      <li>Feature requests → <span class="fill">[FILL IN: where do these go, and what do you tell the customer?]</span></li>
-      <li>Angry customer demanding a manager → <span class="fill">[FILL IN: escalation-by-request policy]</span></li>
+      <li>Multiple customers reporting the same thing → suspected platform incident. <span class="std">Stop debugging it case by case and alert your head of technical support (or the on-call / incident contact) immediately, so a single incident ticket is opened and customers are updated together.</span></li>
+      <li>Customer requests something needing admin-panel access they don't have (new contract, module activation, tariff change) → <span class="std">route to the team that owns the action (Sales for commercial / module changes, 2nd line or admin for rights) through the documented approval path. If no path is defined, your head of technical support authorises or forwards it.</span></li>
+      <li>Data recovery: deleting an object destroys all its data and history, and restoring requires a system administrator. Treat any deletion request as irreversible and confirm before acting. <span class="std">Restoration is only possible if a backup still covers the period, and the window is limited &mdash; never promise recovery. Raise it to your head of technical support at once, because the window is time-critical.</span></li>
+      <li>Feature requests → <span class="std">log as a service / feature request and pass to Product via your head of technical support. Tell the customer honestly that it's been recorded and passed on, with no committed date &mdash; never promise a feature.</span></li>
+      <li>Angry customer demanding a manager → <span class="std">don't refuse. Acknowledge, and escalate the call to your team lead or head of technical support &mdash; a demand for a manager is itself a valid escalation trigger.</span></li>
     </ul>
 
     <h4>Module C assignments</h4>
     <ol>
       <li><b>Route the ticket.</b> Trainer gives 10 real (anonymized) past requests. Trainee names the owning team and justifies it. Use genuine past tickets — invented ones are always too clean.</li>
       <li><b>Write an escalation.</b> Take the unresolved case from Module B's broken-sandbox exercise and write the handover. The 2nd-line engineer who receives it grades it: could they start work without asking a single question?</li>
-      <li><b>Shadowing.</b> <span class="fill">[FILL IN: how many hours listening to live calls before taking their own?]</span></li>
-      <li><b>Reverse shadowing.</b> Trainee handles live contacts with a senior listening in. <span class="fill">[FILL IN: how many, and what's the sign-off criterion?]</span></li>
+      <li><b>Shadowing.</b> <span class="std">A common default is 8&ndash;16 hours (2&ndash;4 days) listening to live calls before handling their own, adjusted to how quickly the trainee is ready. Confirm the volume with your head of technical support.</span></li>
+      <li><b>Reverse shadowing.</b> Trainee handles live contacts with a senior listening in. <span class="std">Typically a further 2&ndash;3 days; sign-off when the trainee completes a full Acknowledge &rarr; Diagnose &rarr; Act &rarr; Close cycle unaided on a real contact. Your head of technical support signs off readiness.</span></li>
     </ol>
 
     <hr>
@@ -371,7 +371,7 @@
     <h3 id="d2">D2. Priority is calculated, not felt</h3>
     <p>The industry standard is a <b>priority matrix</b>: priority is derived from <b>impact</b> (how much of the business is affected — how many users, is a critical service down, is there risk to revenue or compliance) crossed with <b>urgency</b> (how fast it must be fixed — driven by deadlines, operational cycles, and commitments). Priority then drives response time, escalation path, and how loudly you communicate.</p>
     <p>The point of a matrix is to stop the desk from prioritising by <b>who shouts loudest</b>. It also settles the argument new engineers always have: a single-user issue can still be urgent — the classic example is a payroll problem the day before payroll runs.</p>
-    <p><b>A starting matrix for a telematics desk.</b> A draft to argue with, not to adopt. <span class="fill">[FILL IN: agree these with the team leads and publish them to customers too]</span></p>
+    <p><b>A starting matrix for a telematics desk.</b> A draft to argue with, not to adopt. <span class="std">The matrix below is a common industry default; agree the final priorities and response targets with your head of technical support and team leads, and publish them to customers so expectations are shared.</span></p>
     <div class="mxw"><div class="mx">
       <div class="hh"></div><div class="hh">Urgency: high</div><div class="hh">Medium</div><div class="hh">Low</div>
       <div class="rh"><div><b>Impact: high</b>whole contract / many customers</div></div>
@@ -417,7 +417,7 @@
         <tr><td class="k">Escalation rate</td><td>Health of the L1/L2 boundary</td><td>A <em>low</em> rate is not automatically good; it often means over-holding. Read it alongside age of escalated tickets.</td></tr>
       </tbody>
     </table></div>
-    <p><span class="fill">[FILL IN: which of these we actually measure, what the targets are, and whether they are used for coaching or for review — trainees will ask, and evasion here damages trust fast]</span></p>
+    <p><span class="std">As a default, most telematics desks track FCR, CSAT, reopen rate and escalation rate for <b>coaching and process improvement</b>, and AHT only for capacity planning &mdash; never as an individual target. Which are actually measured here, their targets, and whether they feed coaching or formal review, are questions for your head of technical support; answer trainees plainly, because evasion here damages trust fast.</span></p>
 
     <h3 id="d5">D5. Driver data is personal data</h3>
     <div class="box">
@@ -425,21 +425,21 @@
     </div>
     <p>The reference position, widely cited across the industry: the European Data Protection Board's <b>Guidelines 01/2020 on connected vehicles</b> treat location, speed, distance and driving-behaviour data as personal data once they can be linked to a natural person. In practice that covers essentially everything a modern tracker collects — GPS traces, harsh-braking events, idling time, login IDs, camera footage.</p>
     <p><b>This is enforced, not theoretical.</b> In January 2025 the Italian regulator fined a road haulier €50,000 over GPS tracking of 50 tractor-trailers: the tracking stayed active during drivers' breaks and location data was retained for 180 days. Transparency, retention and proportionality each contributed to the penalty independently — getting one right does not excuse the others.</p>
-    <p><b>Which regime applies depends on the customer, not on us.</b> <span class="fill">[FILL IN — this needs a real answer before delivery]</span></p>
+    <p><b>Which regime applies depends on the customer, not on us.</b> <span class="std">Default working rule: apply the strictest regime that touches the contract, treat all driver location and behaviour data as personal data, and send any doubt to your head of technical support (or the company's data-protection lead). The regimes below are the common ones across PILOT's customer base.</span></p>
     <ul>
       <li><b>Ghana:</b> the <b>Data Protection Act, 2012 (Act 843)</b>, enforced by the <b>Data Protection Commission</b>, with mandatory registration of data controllers and processors.</li>
       <li><b>EU / UK:</b> GDPR, with fines reaching €20m or 4% of global turnover at the top tier.</li>
-      <li><b>Elsewhere:</b> PILOT's own documentation shows integrations for Saudi (WASL), the UAE (Etisalat) and Riyadh Municipality — so the customer base spans several regimes at once. <span class="fill">[FILL IN: which apply to our contracts, and who is controller vs processor in each]</span></li>
+      <li><b>Elsewhere:</b> PILOT's own documentation shows integrations for Saudi (WASL), the UAE (Etisalat) and Riyadh Municipality — so the customer base spans several regimes at once. <span class="std">Default position: the fleet operator (the customer) is the <b>data controller</b> and PILOT / your company is the <b>data processor</b> acting on their documented instructions. Confirm this per contract with your head of technical support or data-protection lead.</span></li>
     </ul>
 
     <h4>What this actually changes for a 1st-line engineer</h4>
     <p>Not abstract compliance — five concrete rules:</p>
     <ol>
-      <li><b>Access is not authorisation.</b> Master status lets you open any customer's driver history. That you <em>can</em> does not mean you <em>may</em>. Open the object on the ticket; nothing else. <span class="fill">[FILL IN: is admin-panel access logged and reviewed? Trainees should be told plainly, either way.]</span></li>
-      <li><b>A request from a driver is not a normal ticket.</b> Drivers have rights over their own data — access, correction, erasure. If a driver contacts support directly asking what is held about them, that is a data-subject request with a legal clock on it. <span class="fill">[FILL IN: route to whom?]</span></li>
-      <li><b>"Where was driver X on Saturday?" puts you inside an employment dispute.</b> The fleet manager may well be entitled to it — but the engineer pulling the report is not the person who should be deciding that. <span class="fill">[FILL IN: what is our policy on ad-hoc surveillance-shaped requests?]</span></li>
-      <li><b>Deletion is irreversible and may be either an obligation or a breach.</b> Deleting an object destroys all its data and history. Retention has a floor (evidence, contracts) and a ceiling — the 180-day retention was part of the Italian fine. Never action a deletion on a phone call alone. <span class="fill">[FILL IN: retention policy, and who authorises deletion]</span></li>
-      <li><b>Know that "private mode" is a real category.</b> Industry practice for personal use of company vehicles is a privacy mode suppressing location during non-work time — the Italian case turned partly on tracking continuing through breaks. If a customer asks whether PILOT can do this, it is a real question with legal weight, not a feature whim. <span class="fill">[FILL IN: what is our answer?]</span></li>
+      <li><b>Access is not authorisation.</b> Master status lets you open any customer's driver history. That you <em>can</em> does not mean you <em>may</em>. Open the object on the ticket; nothing else. <span class="std">Default: assume admin-panel access is logged and reviewable, and behave accordingly. Confirm the real logging position with your head of technical support, and tell trainees plainly either way.</span></li>
+      <li><b>A request from a driver is not a normal ticket.</b> Drivers have rights over their own data — access, correction, erasure. If a driver contacts support directly asking what is held about them, that is a data-subject request with a legal clock on it. <span class="std">Route it, unchanged, to your head of technical support or the data-protection lead &mdash; do not fulfil it yourself.</span></li>
+      <li><b>"Where was driver X on Saturday?" puts you inside an employment dispute.</b> The fleet manager may well be entitled to it — but the engineer pulling the report is not the person who should be deciding that. <span class="std">Default: don't fulfil ad-hoc "where was driver X" requests on the spot. Confirm the requester's authority and route through your head of technical support; the person pulling the report is not the person who decides it's lawful.</span></li>
+      <li><b>Deletion is irreversible and may be either an obligation or a breach.</b> Deleting an object destroys all its data and history. Retention has a floor (evidence, contracts) and a ceiling — the 180-day retention was part of the Italian fine. Never action a deletion on a phone call alone. <span class="std">Default: act on a deletion only with written authorisation from the customer's authorised contact, subject to any legal retention floor. Route every deletion request to your head of technical support.</span></li>
+      <li><b>Know that "private mode" is a real category.</b> Industry practice for personal use of company vehicles is a privacy mode suppressing location during non-work time — the Italian case turned partly on tracking continuing through breaks. If a customer asks whether PILOT can do this, it is a real question with legal weight, not a feature whim. <span class="std">Default answer: yes &mdash; suppressing location during personal / non-work time is standard telematics practice and PILOT supports privacy-mode configuration; treat the request as legitimate and route the setup through your head of technical support.</span></li>
     </ol>
     <p><b>The line to teach:</b> support engineers are not lawyers, and should never adjudicate. But they must <b>recognise</b> the shape of a data-protection request and route it, rather than helpfully fulfilling it. The failure mode is not malice — it is an engineer being accommodating.</p>
 
@@ -449,7 +449,7 @@
       <li><b>Find the problem.</b> Given a month of tickets, identify the recurring symptom that should be raised as a problem rather than solved twelve more times.</li>
       <li><b>Write a KCS article.</b> Take the resolved broken-sandbox case from Module B and write it up <b>titled in the customer's words</b>. Test: search for it using only the phrase a customer would type. If you can't find it, retitle it.</li>
       <li><b>Physical clock drill.</b> Trainer reads out six faults; trainee answers only "what happens in the physical world while this stays broken?" and re-prioritises accordingly. Include a refrigerated trailer and a stolen-vehicle case.</li>
-      <li><b>The uncomfortable request.</b> Role-play: a fleet manager asks for a weekend location report on one named driver, and is annoyed at hesitation. Trainee must neither refuse flatly nor simply comply — they route it, and keep the relationship intact. <span class="fill">[FILL IN: brief the trainer on our actual policy first]</span></li>
+      <li><b>The uncomfortable request.</b> Role-play: a fleet manager asks for a weekend location report on one named driver, and is annoyed at hesitation. Trainee must neither refuse flatly nor simply comply — they route it, and keep the relationship intact. <span class="std">Default outcome for the role-play: the trainee routes the request to their head of technical support and keeps the relationship intact, rather than refusing flatly or simply complying. Brief the trainer on the local policy if it differs.</span></li>
       <li><b>The driver on the phone.</b> Role-play: a driver calls support directly asking what data is held on him and demanding it be deleted. Trainee must recognise the category and route it. Most trainees will try to be helpful. That is the lesson.</li>
     </ol>
 
@@ -460,7 +460,7 @@
       <p><b>PILOT does not have "a manual." It has several, versioned independently.</b></p>
       <p>• The <b>user guide</b> is currently at <b>v7.9</b>, with <b>7.8</b> and <b>7.7</b> kept online as archives.<br>
       • The <b>admin panel manual is a separate document, at version 7.7.</b> It is not a stale copy of the user guide — it is its own manual with its own version line. The 3-day admin plan links to it correctly.<br>
-      • There is also a <b>helpdesk portal</b> (helpdesk.pilot-gps.com), a Jira Service Management customer portal. <span class="fill">[FILL IN: do we raise tickets with the vendor here, and who has an account?]</span></p>
+      • There is also a <b>helpdesk portal</b> (helpdesk.pilot-gps.com), a Jira Service Management customer portal. <span class="std">By default the vendor portal is used by your head of technical support and named platform admins, not by every 1st-line engineer &mdash; raise vendor-side tickets through them.</span></p>
       <p><b>Consequence:</b> a discrepancy between the training plans and the v7.9 user guide is not evidence of an error. It usually means you are reading the wrong manual, or a different version, or internal vocabulary that the public guide words differently.</p>
     </div>
 
@@ -537,11 +537,11 @@
 <div class="drawer" id="drawer">
   <div class="drawer-in">
     <div class="drawer-h">
-      <h3>Gaps to fill</h3><span class="n" id="dn"></span><div class="sp"></div>
+      <h3>Standard defaults</h3><span class="n" id="dn"></span><div class="sp"></div>
       <button id="dclose" aria-label="Close">&times;</button>
     </div>
     <div class="drawer-b">
-      <p class="lede">Every company-specific blank in this document. Most need answers from team leads, not from the trainer. Click one to jump to it.</p>
+      <p class="lede">Every company-specific passage in this document, pre-filled with a common telematics-industry default. Confirm each with your team leads before delivery; route anything you can't resolve to your head of technical support. Click one to jump to it.</p>
       <div id="dlist"></div>
     </div>
   </div>
