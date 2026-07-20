@@ -13,7 +13,7 @@
   --text-dis: #cbd5e1;
   --line: #e2e8f0;
   --line-strong: #cbd5e1;
-  
+
   --positive: #22c55e;
   --positive-bg: #dcfce7;
   --negative: #ef4444;
@@ -21,11 +21,11 @@
   --warning: #eab308;
   --warning-dim: #ca8a04;
   --warning-bg: #fef9c3;
-  
+
   --nav-bg: rgba(255, 255, 255, 0.96);
   --nav-text: #334155;
   --nav-hover: rgba(0, 0, 0, 0.04);
-  
+
   --mono: 'Courier New', ui-monospace, monospace;
   --sans: 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
   --transition: all 0.25s ease;
@@ -44,7 +44,7 @@
   --text-dis: #475569;
   --line: #1e293b;
   --line-strong: #334155;
-  
+
   --positive: #4ade80;
   --positive-bg: #14532d;
   --negative: #f87171;
@@ -52,7 +52,7 @@
   --warning: #facc15;
   --warning-dim: #b45309;
   --warning-bg: #713f12;
-  
+
   --nav-bg: rgba(15, 23, 42, 0.96);
   --nav-text: #f8fafc;
   --nav-hover: rgba(255, 255, 255, 0.06);
