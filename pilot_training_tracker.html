@@ -3,27 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>PILOT training tracker</title>
+<link rel="stylesheet" href="shared.css">
 <style>
-  :root{
-    --bg: #0E1420;
-    --panel: #161F30;
-    --panel-2: #1D2A3E;
-    --line: #2A3A52;
-    --amber: #E8A33D;
-    --amber-dim: #6B4F24;
-    --teal: #4FB4A8;
-    --text: #EDEEF0;
-    --text-dim: #8C97A8;
-    --text-faint: #5C6678;
-    --done-bg: #16261F;
-    --done-line: #2E5443;
-  }
-  html,body{ background: transparent; margin:0; padding:0; }
-  *{ box-sizing: border-box; }
-  body{
-    font-family: 'Segoe UI', 'IBM Plex Sans', Arial, sans-serif;
-    color: var(--text);
-  }
   .wrap{
     background: var(--bg);
     min-height: 100vh;
@@ -49,115 +30,92 @@
     position:absolute; inset:0;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
   }
-  .gauge-pct .num{ font-family:'Courier New', monospace; font-size:22px; font-weight:700; color: var(--amber); letter-spacing: -1px; }
-  .gauge-pct .lbl{ font-size:9px; letter-spacing:2px; color: var(--text-faint); text-transform:uppercase; margin-top:2px; }
+  .gauge-pct .num{ font-family:var(--mono); font-size:22px; font-weight:700; color: var(--warning); letter-spacing: -1px; }
+  .gauge-pct .lbl{ font-size:9px; letter-spacing:2px; color: var(--text-dis); text-transform:uppercase; margin-top:2px; }
   .title-block{ flex:1; min-width: 220px; }
   .title-block .eyebrow{
-    font-family:'Courier New', monospace; font-size:11px; letter-spacing: 3px;
-    color: var(--teal); text-transform: uppercase; margin: 0 0 6px;
+    font-family:var(--mono); font-size:11px; letter-spacing: 3px;
+    color: var(--primary); text-transform: uppercase; margin: 0 0 6px;
   }
   .title-block h1{
     font-size: 20px; margin: 0 0 6px; font-weight: 700; letter-spacing: 0.5px;
   }
-  .title-block .sub{ font-size: 13px; color: var(--text-dim); margin:0; }
+  .title-block .sub{ font-size: 13px; color: var(--text-sec); margin:0; }
   .stat-row{ display:flex; gap: 18px; margin-top: 10px; flex-wrap: wrap; }
-  .stat{ font-family:'Courier New', monospace; font-size: 12px; color: var(--text-dim); }
-  .stat b{ color: var(--text); font-size:14px; }
+  .stat{ font-family:var(--mono); font-size: 12px; color: var(--text-sec); }
+  .stat b{ color: var(--text-pr); font-size:14px; }
 
   .section{ max-width: 880px; margin: 0 auto 20px; }
   .section-head{
     display:flex; align-items:center; gap:10px; cursor:pointer; user-select:none;
-    padding: 10px 14px; background: var(--panel-2); border: 1px solid var(--line);
+    padding: 10px 14px; background: var(--surface-alt); border: 1px solid var(--line);
     border-radius: 6px; margin-bottom: 10px;
   }
   .section-head .flag{
-    font-family:'Courier New', monospace; font-size: 11px; color: var(--bg);
-    background: var(--amber); padding: 2px 8px; border-radius: 3px; font-weight:700; letter-spacing:1px;
+    font-family:var(--mono); font-size: 11px; color: var(--bg);
+    background: var(--warning); padding: 2px 8px; border-radius: 3px; font-weight:700; letter-spacing:1px;
   }
   .section-head h2{ font-size:15px; margin:0; flex:1; font-weight:700; }
-  .section-head .count{ font-family:'Courier New', monospace; font-size:12px; color: var(--text-dim); }
-  .section-head .chev{ color: var(--text-faint); transition: transform .15s; font-size:12px; }
+  .section-head .count{ font-family:var(--mono); font-size:12px; color: var(--text-sec); }
+  .section-head .chev{ color: var(--text-dis); transition: transform .15s; font-size:12px; }
   .section-head.collapsed .chev{ transform: rotate(-90deg); }
   .section-bar-track{ height:4px; background:var(--line); border-radius:2px; overflow:hidden; margin: -4px 0 12px; }
-  .section-bar-fill{ height:100%; background: var(--teal); }
+  .section-bar-fill{ height:100%; background: var(--primary); }
 
   .days{ display:flex; flex-direction:column; gap:10px; }
   .day-card{
-    background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
     padding: 14px 16px;
   }
-  .day-card.complete{ background: var(--done-bg); border-color: var(--done-line); }
+  .day-card.complete{ background: var(--positive-bg); border-color: var(--positive); }
   .day-top{ display:flex; align-items:baseline; gap:10px; margin-bottom: 4px; }
   .day-top .daynum{
-    font-family:'Courier New', monospace; color: var(--amber); font-size:12px; font-weight:700; letter-spacing:1px;
+    font-family:var(--mono); color: var(--warning); font-size:12px; font-weight:700; letter-spacing:1px;
   }
   .day-top h3{ font-size:14px; margin:0; font-weight:700; flex:1; }
-  .day-top .dcount{ font-family:'Courier New', monospace; font-size:11px; color: var(--text-faint); }
-  .topics{ font-size:12px; color: var(--text-dim); margin: 0 0 10px; line-height:1.5; }
+  .day-top .dcount{ font-family:var(--mono); font-size:11px; color: var(--text-dis); }
+  .topics{ font-size:12px; color: var(--text-sec); margin: 0 0 10px; line-height:1.5; }
   .items{ display:flex; flex-direction:column; gap:6px; }
   .item{
     display:flex; align-items:flex-start; gap:9px; cursor:pointer; padding: 3px 0;
   }
   .switch{
     flex-shrink:0; width:16px; height:16px; margin-top:1px; border-radius:3px;
-    border: 1.5px solid var(--text-faint); position: relative;
+    border: 1.5px solid var(--text-dis); position: relative;
   }
-  .item.checked .switch{ background: var(--teal); border-color: var(--teal); }
+  .item.checked .switch{ background: var(--primary); border-color: var(--primary); }
   .item.checked .switch::after{
     content:''; position:absolute; left:4px; top:0px; width:4px; height:8px;
-    border: solid var(--done-bg); border-width: 0 2px 2px 0; transform: rotate(45deg);
+    border: solid var(--surface); border-width: 0 2px 2px 0; transform: rotate(45deg);
   }
   .item span{ font-size: 13px; line-height:1.4; }
-  .item.checked span{ color: var(--text-faint); text-decoration: line-through; }
+  .item.checked span{ color: var(--text-dis); text-decoration: line-through; }
 
   .reset-row{ max-width:880px; margin: 24px auto 0; text-align:right; }
   .reset-btn{
-    font-family:'Courier New', monospace; font-size:11px; color: var(--text-faint);
+    font-family:var(--mono); font-size:11px; color: var(--text-dis);
     background:none; border: 1px solid var(--line); border-radius:4px; padding:6px 12px; cursor:pointer;
   }
-  .reset-btn:hover{ color: var(--amber); border-color: var(--amber-dim); }
+  .reset-btn:hover{ color: var(--warning); border-color: var(--warning-dim); }
 </style>
 </head>
 <body>
 <!-- ─── SITE NAV ──────────────────────────────────── -->
-<style>
-  .topnav{position:sticky;top:0;z-index:100;background:rgba(11,15,25,.92);
-    border-bottom:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-  .topnav-in{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:54px;gap:12px}
-  .topnav .logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-  .topnav .logo-link img{height:24px;width:auto}
-  .topnav .logo-text{font-family:'Courier New',monospace;font-size:10px;letter-spacing:2.5px;color:var(--teal);text-transform:uppercase;white-space:nowrap}
-  .topnav .logo-text b{color:var(--text);letter-spacing:1px}
-  .topnav .nav-spacer{flex:1}
-  .topnav .nav-links{display:flex;gap:4px;align-items:center}
-  .topnav .nav-link{font-family:'Courier New',monospace;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;
-    color:var(--text-dim);padding:7px 12px;border-radius:5px;border:1px solid transparent;transition:all .2s ease;white-space:nowrap}
-  .topnav .nav-link:hover{color:var(--text);background:rgba(255,255,255,.04);border-color:var(--line)}
-  .topnav .nav-link.active{color:#121826;background:var(--amber);border-color:var(--amber);font-weight:700}
-  .topnav .hamburger{display:none;background:none;border:1px solid var(--line);color:var(--text-dim);
-    border-radius:5px;padding:7px 9px;cursor:pointer;font-size:16px;line-height:1}
-  .topnav .hamburger:hover{color:var(--text);border-color:var(--text-faint)}
-  @media(max-width:768px){
-    .topnav .nav-links{display:none;position:absolute;top:54px;left:0;right:0;background:rgba(11,15,25,.97);
-      border-bottom:1px solid var(--line);flex-direction:column;padding:10px 16px;gap:4px;backdrop-filter:blur(14px)}
-    .topnav .nav-links.open{display:flex}
-    .topnav .hamburger{display:block}
-  }
-</style>
-<nav class="topnav">
+<nav class="topnav" id="topnav">
   <div class="topnav-in">
     <a class="logo-link" href="index.html">
-      <img src="White.png" alt="PILOT logo">
+      <img src="https://pilot-telematics.com/wp-content/themes/pilot/assets/images/logo.png" alt="PILOT logo" class="pilot-logo">
       <span class="logo-text">PILOT <b>Training Hub</b></span>
     </a>
     <div class="nav-spacer"></div>
-    <button class="hamburger" id="siteHamburger" aria-label="Toggle navigation">&#9776;</button>
     <div class="nav-links" id="siteNavLinks">
       <a class="nav-link" href="index.html">Home</a>
       <a class="nav-link active" href="pilot_training_tracker.html">Training Tracker</a>
       <a class="nav-link" href="pilot_support_panel.html">Support Panel</a>
       <a class="nav-link" href="pilot_support_skills_module.html">Skills Module</a>
     </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme"></button>
+    <button class="hamburger" id="siteHamburger" aria-label="Toggle navigation">&#9776;</button>
   </div>
 </nav>
 <div class="wrap">
@@ -436,11 +394,6 @@ document.getElementById('resetBtn').addEventListener('click', async () => {
   updateHeader();
 })();
 </script>
-<script>
-  // Site nav mobile toggle
-  document.getElementById('siteHamburger').addEventListener('click', () => {
-    document.getElementById('siteNavLinks').classList.toggle('open');
-  });
-</script>
+<script src="shared.js"></script>
 </body>
 </html>

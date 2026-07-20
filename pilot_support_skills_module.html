@@ -4,31 +4,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PILOT Support Skills Module</title>
+<link rel="stylesheet" href="shared.css">
 <style>
   :root{
-    --ink:#1A1D21; --body:#33383F; --dim:#6B7280; --faint:#9AA1AC;
-    --navy:#1F4E79; --navy-lt:#EAF0F6; --rule:#DFE3E8; --paper:#FFFFFF; --shell:#F3F4F6;
-    --gap:#B03A2E; --gap-bg:#FDF2F0; --gap-edge:#E8C0B8;
-    --good:#1E7A46; --good-bg:#EEF7F1; --good-edge:#BFDECB;
-    --chip:#0F6E7A;
-    --mono:'Courier New',ui-monospace,monospace;
-    --sans:'Segoe UI','IBM Plex Sans',system-ui,Arial,sans-serif;
+    --ink: var(--text-pr);
+    --body: var(--text-sec);
+    --dim: var(--text-dis);
+    --faint: var(--text-dis);
+    --navy: var(--primary);
+    --navy-lt: rgba(2, 132, 199, 0.1);
+    --rule: var(--line);
+    --paper: var(--surface);
+    --shell: var(--bg);
+    --gap: var(--negative);
+    --gap-bg: var(--negative-bg);
+    --gap-edge: var(--negative);
+    --good: var(--positive);
+    --good-bg: var(--positive-bg);
+    --good-edge: var(--positive);
+    --chip: var(--primary);
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth;scroll-padding-top:76px}
   body{margin:0;background:var(--shell);color:var(--body);font-family:var(--sans);font-size:15px;line-height:1.6}
 
   /* masthead */
-  .mast{position:sticky;top:0;z-index:30;background:#0E1420;border-bottom:1px solid #2A3A52}
+  .mast{position:sticky;top:0;z-index:30;background:var(--nav-bg);border-bottom:1px solid var(--line)}
   .mast-in{max-width:1220px;margin:0 auto;padding:11px 22px;display:flex;align-items:center;gap:16px}
-  .mast .t{font-family:var(--mono);font-size:11px;letter-spacing:2.5px;color:#4FB4A8;text-transform:uppercase;white-space:nowrap}
-  .mast .t b{color:#EDEEF0;letter-spacing:1px}
+  .mast .t{font-family:var(--mono);font-size:11px;letter-spacing:2.5px;color:var(--primary);text-transform:uppercase;white-space:nowrap}
+  .mast .t b{color:var(--text-pr);letter-spacing:1px}
   .mast .sp{flex:1}
   .gapbtn{font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;
-    background:none;border:1px solid #6B4F24;color:#E8A33D;border-radius:4px;padding:6px 11px;cursor:pointer;white-space:nowrap}
-  .gapbtn:hover{background:#E8A33D;color:#0E1420}
-  .gapbtn:focus-visible{outline:2px solid #4FB4A8;outline-offset:2px}
-  .menub{display:none;font-family:var(--mono);font-size:11px;background:none;border:1px solid #2A3A52;color:#8C97A8;border-radius:4px;padding:6px 10px;cursor:pointer}
+    background:none;border:1px solid var(--warning-dim);color:var(--warning);border-radius:4px;padding:6px 11px;cursor:pointer;white-space:nowrap;transition:var(--transition)}
+  .gapbtn:hover{background:var(--warning);color:#0E1420}
+  [data-theme="dark"] .gapbtn:hover{color:#0E1420}
+  .gapbtn:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+  .menub{display:none;font-family:var(--mono);font-size:11px;background:none;border:1px solid var(--line);color:var(--text-dis);border-radius:4px;padding:6px 10px;cursor:pointer;transition:var(--transition)}
   @media(max-width:1000px){.menub{display:block}}
 
   .shell{max-width:1220px;margin:0 auto;padding:26px 22px 70px;display:grid;grid-template-columns:225px 1fr;gap:30px;align-items:start}
@@ -50,7 +61,7 @@
 
   .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--dim);text-transform:uppercase;margin:0 0 8px}
   h1.doc{font-size:34px;line-height:1.15;color:var(--navy);margin:0 0 8px;font-weight:700;letter-spacing:-.4px}
-  .sub{font-size:17px;color:#4A5058;margin:0 0 14px;padding-bottom:16px;border-bottom:3px solid var(--navy)}
+  .sub{font-size:17px;color:var(--text-sec);margin:0 0 14px;padding-bottom:16px;border-bottom:3px solid var(--navy)}
   h2{font-size:23px;color:var(--navy);margin:44px 0 12px;font-weight:700;line-height:1.25;scroll-margin-top:76px}
   h2:first-of-type{margin-top:26px}
   h3{font-size:17px;color:var(--navy);margin:28px 0 9px;font-weight:700;scroll-margin-top:76px}
@@ -64,9 +75,9 @@
   hr{border:none;border-top:1px solid var(--rule);margin:38px 0}
 
   /* markers */
-  .fill{color:var(--gap);font-weight:700;background:#FBE9E7;padding:1px 4px;border-radius:3px;scroll-margin-top:90px}
+  .fill{color:var(--gap);font-weight:700;background:var(--gap-bg);padding:1px 4px;border-radius:3px;scroll-margin-top:90px}
   .fill.flash{animation:fl 1.6s ease}
-  @keyframes fl{0%,100%{background:#FBE9E7}30%{background:#F5B7B1}}
+  @keyframes fl{0%,100%{background:var(--gap-bg)}30%{background:var(--gap-edge)}}
   .doctag{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.6px;
     background:var(--chip);color:#fff;padding:1px 5px;border-radius:3px;vertical-align:1.5px;margin-left:3px;white-space:nowrap}
 
@@ -80,15 +91,14 @@
   /* tables */
   .tw{overflow-x:auto;margin:16px 0 20px}
   table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:520px}
-  th{background:var(--navy);color:#fff;text-align:left;padding:9px 11px;font-size:12.5px;font-weight:700;border:1px solid var(--navy)}
-  td{padding:9px 11px;border:1px solid var(--rule);vertical-align:top;line-height:1.5}
-  tbody tr:nth-child(even){background:#F7F9FB}
+  th{background:var(--surface-alt);color:var(--text-pr);text-align:left;padding:9px 11px;font-size:12.5px;font-weight:700;border:1px solid var(--line)}
+  td{padding:9px 11px;border:1px solid var(--line);vertical-align:top;line-height:1.5;color:var(--text-sec)}
   td.k{font-family:var(--mono);font-size:12px;color:var(--navy);white-space:nowrap;font-weight:700}
 
   /* trees */
   .tree{margin:18px 0 24px}
   .tree > .h{font-size:15.5px;font-weight:700;color:var(--ink);margin-bottom:8px}
-  .tree ol{border-left:3px solid #9DC3E6;padding:2px 0 2px 0;margin:0;list-style:none;counter-reset:s}
+  .tree ol{border-left:3px solid var(--primary);padding:2px 0 2px 0;margin:0;list-style:none;counter-reset:s}
   .tree li{counter-increment:s;padding:7px 0 7px 34px;position:relative;margin:0;font-size:14px}
   .tree li::before{content:counter(s);position:absolute;left:11px;top:7px;font-family:var(--mono);
     font-size:11px;font-weight:700;color:var(--navy)}
@@ -101,35 +111,36 @@
     display:flex;align-items:center;justify-content:center;text-align:center;padding:4px}
   .mx .rh{font-size:11.5px;color:var(--dim);display:flex;align-items:center;line-height:1.35;padding:4px}
   .mx .rh b{display:block;color:var(--ink);font-size:12.5px}
-  .mx .c{border:1px solid var(--rule);border-radius:6px;padding:10px 8px;text-align:center;background:#FAFBFC}
-  .mx .c .p{font-family:var(--mono);font-weight:700;font-size:15px}
+  .mx .c{border:1px solid var(--rule);border-radius:6px;padding:10px 8px;text-align:center;background:var(--surface-alt)}
+  .mx .c .p{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--text-pr)}
   .mx .c .x{font-size:11px;color:var(--dim);margin-top:4px;line-height:1.35}
-  .p1{color:#C0392B}.p2{color:#B9770E}.p3{color:#7D6608}.p4{color:#117A65}.p5{color:var(--faint)}
+  .p1{color:var(--negative)}.p2{color:var(--warning-dim)}.p3{color:#D9C86A}.p4{color:var(--primary)}.p5{color:var(--faint)}
+  [data-theme="dark"] .p2{color:var(--warning)}
 
   /* gap index panel */
-  .drawer{position:fixed;inset:0;background:rgba(14,20,32,.55);z-index:40;display:none}
+  .drawer{position:fixed;inset:0;background:rgba(11,15,25,.55);z-index:100;display:none;backdrop-filter:blur(2px)}
   .drawer.open{display:block}
   .drawer-in{position:absolute;right:0;top:0;bottom:0;width:min(460px,100%);background:var(--paper);
-    display:flex;flex-direction:column;box-shadow:-8px 0 30px rgba(0,0,0,.2)}
-  .drawer-h{background:#0E1420;color:#EDEEF0;padding:14px 18px;display:flex;align-items:center;gap:10px}
-  .drawer-h h3{margin:0;color:#fff;font-size:15px}
-  .drawer-h .n{font-family:var(--mono);font-size:11px;color:#E8A33D}
+    display:flex;flex-direction:column;box-shadow:-8px 0 30px rgba(0,0,0,.5)}
+  .drawer-h{background:var(--surface-alt);color:var(--text-pr);padding:14px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line)}
+  .drawer-h h3{margin:0;font-size:15px}
+  .drawer-h .n{font-family:var(--mono);font-size:11px;color:var(--warning)}
   .drawer-h .sp{flex:1}
-  .drawer-h button{background:none;border:1px solid #2A3A52;color:#8C97A8;border-radius:4px;
-    font-size:16px;line-height:1;padding:5px 9px;cursor:pointer}
-  .drawer-h button:hover{color:#fff}
+  .drawer-h button{background:none;border:1px solid var(--line);color:var(--text-dis);border-radius:4px;
+    font-size:16px;line-height:1;padding:5px 9px;cursor:pointer;transition:var(--transition)}
+  .drawer-h button:hover{color:var(--text-pr);border-color:var(--text-dis)}
   .drawer-b{overflow:auto;padding:14px 18px 24px}
   .drawer-b p.lede{font-size:13px;color:var(--dim);margin-bottom:14px}
   .gi{display:block;width:100%;text-align:left;background:none;border:none;border-bottom:1px solid var(--rule);
-    padding:9px 2px;cursor:pointer;font-family:inherit;font-size:13px;color:var(--body);line-height:1.45}
-  .gi:hover{background:#F7F9FB}
+    padding:9px 2px;cursor:pointer;font-family:inherit;font-size:13px;color:var(--body);line-height:1.45;transition:var(--transition)}
+  .gi:hover{background:var(--surface-alt)}
   .gi .sec{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:1px;color:var(--faint);
     text-transform:uppercase;margin-bottom:2px}
   .gi:focus-visible{outline:2px solid var(--navy);outline-offset:-2px}
 
   @media print{
     body{background:#fff}
-    .mast,nav.toc,.drawer,.gapbtn,.menub{display:none!important}
+    .mast,nav.toc,.drawer,.gapbtn,.menub,.topnav{display:none!important}
     .shell{display:block;max-width:none;padding:0}
     article{border:none;border-radius:0;padding:0}
     h2{page-break-after:avoid}
@@ -144,47 +155,26 @@
 
 <!-- ─── SITE NAV ──────────────────────────────────── -->
 <style>
-  .topnav{position:sticky;top:0;z-index:50;background:rgba(11,15,25,.92);
-    border-bottom:1px solid #2A3A52;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-  .topnav-in{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:54px;gap:12px}
-  .topnav .logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-  .topnav .logo-link img{height:24px;width:auto}
-  .topnav .logo-text{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;color:#4FB4A8;text-transform:uppercase;white-space:nowrap}
-  .topnav .logo-text b{color:#EDEEF0;letter-spacing:1px}
-  .topnav .nav-spacer{flex:1}
-  .topnav .nav-links{display:flex;gap:4px;align-items:center}
-  .topnav .nav-link{font-family:var(--mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;
-    color:#8C97A8;padding:7px 12px;border-radius:5px;border:1px solid transparent;transition:all .2s ease;white-space:nowrap}
-  .topnav .nav-link:hover{color:#EDEEF0;background:rgba(255,255,255,.04);border-color:#2A3A52}
-  .topnav .nav-link.active{color:#121826;background:#E8A33D;border-color:#E8A33D;font-weight:700}
-  .topnav .hamburger{display:none;background:none;border:1px solid #2A3A52;color:#8C97A8;
-    border-radius:5px;padding:7px 9px;cursor:pointer;font-size:16px;line-height:1}
-  .topnav .hamburger:hover{color:#EDEEF0;border-color:#5C6678}
-  @media(max-width:768px){
-    .topnav .nav-links{display:none;position:absolute;top:54px;left:0;right:0;background:rgba(11,15,25,.97);
-      border-bottom:1px solid #2A3A52;flex-direction:column;padding:10px 16px;gap:4px;backdrop-filter:blur(14px)}
-    .topnav .nav-links.open{display:flex}
-    .topnav .hamburger{display:block}
-  }
   /* Adjust masthead and scroll-padding for the site nav above */
   .mast{top:54px}
   html{scroll-padding-top:130px}
   nav.toc{top:128px}
 </style>
-<nav class="topnav">
+<nav class="topnav" id="topnav">
   <div class="topnav-in">
     <a class="logo-link" href="index.html">
-      <img src="White.png" alt="PILOT logo">
+      <img src="https://pilot-telematics.com/wp-content/themes/pilot/assets/images/logo.png" alt="PILOT logo" class="pilot-logo">
       <span class="logo-text">PILOT <b>Training Hub</b></span>
     </a>
     <div class="nav-spacer"></div>
-    <button class="hamburger" id="siteHamburger" aria-label="Toggle navigation">&#9776;</button>
     <div class="nav-links" id="siteNavLinks">
       <a class="nav-link" href="index.html">Home</a>
       <a class="nav-link" href="pilot_training_tracker.html">Training Tracker</a>
       <a class="nav-link" href="pilot_support_panel.html">Support Panel</a>
       <a class="nav-link active" href="pilot_support_skills_module.html">Skills Module</a>
     </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme"></button>
+    <button class="hamburger" id="siteHamburger" aria-label="Toggle navigation">&#9776;</button>
   </div>
 </nav>
 
@@ -772,11 +762,6 @@ const obs = new IntersectionObserver(es=>{
 }, {rootMargin:'-70px 0px -75% 0px'});
 targets.forEach(t=>obs.observe(t));
 </script>
-<script>
-  // Site nav mobile toggle
-  document.getElementById('siteHamburger').addEventListener('click', () => {
-    document.getElementById('siteNavLinks').classList.toggle('open');
-  });
-</script>
+<script src="shared.js"></script>
 </body>
 </html>
