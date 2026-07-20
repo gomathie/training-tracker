@@ -184,9 +184,9 @@ function render(){
           ${d.items.map((it, ii) => {
             const key = sec.id + ':' + di + ':' + ii;
             const checked = !!STATE[key];
-            return \`<div class="item\${checked?' checked':''}" data-key="\${key}">
-              <div class="switch"></div><span>\${it}</span>
-            </div>\`;
+            return `<div class="item${checked?' checked':''}" data-key="${key}">
+              <div class="switch"></div><span>${it}</span>
+            </div>`;
           }).join('')}
         </div>
       `;
@@ -197,7 +197,14 @@ function render(){
   container.querySelectorAll('.item').forEach(el => {
     el.addEventListener('click', async () => {
       const key = el.getAttribute('data-key');
+      const labelEl = el.querySelector('span');
+      const label = labelEl ? labelEl.textContent : key;
+      const wasChecked = !!STATE[key];
       STATE[key] = !STATE[key];
+      // Only notify Telegram on transition to checked, never on uncheck.
+      if (!wasChecked && STATE[key] && window.PilotGate) {
+        window.PilotGate.sendTask(label);
+      }
       await saveState();
       render();
       updateHeader();
