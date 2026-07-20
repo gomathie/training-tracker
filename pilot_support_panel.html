@@ -17,7 +17,7 @@
   .wrap{background:var(--bg);min-height:100vh;padding:0 0 40px}
 
   /* header */
-  .bar{position:sticky;top:0;z-index:20;background:rgba(14,20,32,.96);
+  .bar{position:sticky;top:54px;z-index:20;background:rgba(14,20,32,.96);
        border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
   .bar-in{max-width:1180px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
   .brand{font-family:var(--mono);font-size:11px;letter-spacing:2.5px;color:var(--teal);text-transform:uppercase;white-space:nowrap}
@@ -101,7 +101,7 @@
   .cell:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
 
   /* case note */
-  .note{position:sticky;top:66px;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .note{position:sticky;top:120px;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
   @media(max-width:900px){.note{position:static}}
   .note-h{background:var(--panel2);padding:9px 13px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
   .note-h .dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
@@ -129,6 +129,47 @@
 </style>
 </head>
 <body>
+<!-- ─── SITE NAV ──────────────────────────────────── -->
+<style>
+  .topnav{position:sticky;top:0;z-index:100;background:rgba(14,20,32,.92);
+    border-bottom:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .topnav-in{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:54px;gap:12px}
+  .topnav .logo-link{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+  .topnav .logo-link img{height:24px;width:auto}
+  .topnav .logo-text{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;color:var(--teal);text-transform:uppercase;white-space:nowrap}
+  .topnav .logo-text b{color:var(--text);letter-spacing:1px}
+  .topnav .nav-spacer{flex:1}
+  .topnav .nav-links{display:flex;gap:4px;align-items:center}
+  .topnav .nav-link{font-family:var(--mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;
+    color:var(--dim);padding:7px 12px;border-radius:5px;border:1px solid transparent;transition:all .2s ease;white-space:nowrap}
+  .topnav .nav-link:hover{color:var(--text);background:rgba(255,255,255,.04);border-color:var(--line)}
+  .topnav .nav-link.active{color:#121826;background:var(--amber);border-color:var(--amber);font-weight:700}
+  .topnav .hamburger{display:none;background:none;border:1px solid var(--line);color:var(--dim);
+    border-radius:5px;padding:7px 9px;cursor:pointer;font-size:16px;line-height:1}
+  .topnav .hamburger:hover{color:var(--text);border-color:var(--faint)}
+  @media(max-width:768px){
+    .topnav .nav-links{display:none;position:absolute;top:54px;left:0;right:0;background:rgba(14,20,32,.97);
+      border-bottom:1px solid var(--line);flex-direction:column;padding:10px 16px;gap:4px;backdrop-filter:blur(14px)}
+    .topnav .nav-links.open{display:flex}
+    .topnav .hamburger{display:block}
+  }
+</style>
+<nav class="topnav">
+  <div class="topnav-in">
+    <a class="logo-link" href="index.html">
+      <img src="White.png" alt="PILOT logo">
+      <span class="logo-text">PILOT <b>Training Hub</b></span>
+    </a>
+    <div class="nav-spacer"></div>
+    <button class="hamburger" id="siteHamburger" aria-label="Toggle navigation">&#9776;</button>
+    <div class="nav-links" id="siteNavLinks">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="pilot_training_tracker.html">Training Tracker</a>
+      <a class="nav-link active" href="pilot_support_panel.html">Support Panel</a>
+      <a class="nav-link" href="pilot_support_skills_module.html">Skills Module</a>
+    </div>
+  </div>
+</nav>
 <div class="wrap">
 
   <div class="bar"><div class="bar-in">
@@ -565,6 +606,12 @@ document.getElementById('fresh').addEventListener('click', () => {
   await load();
   renderTree(); renderMx(); note();
 })();
+</script>
+<script>
+  // Site nav mobile toggle
+  document.getElementById('siteHamburger').addEventListener('click', () => {
+    document.getElementById('siteNavLinks').classList.toggle('open');
+  });
 </script>
 </body>
 </html>
