@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PILOT support panel</title>
+<style>
+  :root{
+    --bg:#0E1420; --panel:#161F30; --panel2:#1D2A3E; --line:#2A3A52;
+    --amber:#E8A33D; --teal:#4FB4A8; --text:#EDEEF0; --dim:#8C97A8; --faint:#5C6678;
+    --out:#7A4B4B; --outbg:#241A1C; --found:#2E5443; --foundbg:#16261F;
+    --mono:'Courier New',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:transparent}
+  body{font-family:'Segoe UI','IBM Plex Sans',Arial,sans-serif;color:var(--text)}
+  .wrap{background:var(--bg);min-height:100vh;padding:0 0 40px}
+
+  /* header */
+  .bar{position:sticky;top:0;z-index:20;background:rgba(14,20,32,.96);
+       border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
+  .bar-in{max-width:1180px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .brand{font-family:var(--mono);font-size:11px;letter-spacing:2.5px;color:var(--teal);text-transform:uppercase;white-space:nowrap}
+  .brand b{color:var(--text);letter-spacing:1px}
+  .tabs{display:flex;gap:4px;flex:1;flex-wrap:wrap}
+  .tab{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+       background:none;border:1px solid var(--line);color:var(--dim);padding:6px 12px;border-radius:4px;cursor:pointer}
+  .tab:hover{color:var(--text)}
+  .tab[aria-selected="true"]{background:var(--amber);border-color:var(--amber);color:#121826;font-weight:700}
+  .tab:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+  .grid{max-width:1180px;margin:0 auto;padding:22px 18px;display:grid;grid-template-columns:1fr 340px;gap:22px;align-items:start}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+
+  h1{font-size:19px;margin:0 0 6px;font-weight:700}
+  .lede{font-size:13px;color:var(--dim);margin:0 0 18px;line-height:1.55;max-width:62ch}
+  h2{font-size:14px;margin:26px 0 10px;font-weight:700}
+  .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--faint);text-transform:uppercase;margin:0 0 4px}
+
+  /* symptom picker */
+  .syms{display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
+  .sym{display:flex;align-items:center;gap:11px;text-align:left;width:100%;
+       background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:11px 13px;cursor:pointer;color:var(--text)}
+  .sym:hover{border-color:var(--faint)}
+  .sym[aria-pressed="true"]{border-color:var(--amber);background:var(--panel2)}
+  .sym .q{font-size:13.5px;flex:1}
+  .sym .lay{font-family:var(--mono);font-size:10px;color:var(--faint);white-space:nowrap}
+  .sym:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+  /* tree */
+  .tree{border-left:2px solid var(--line);padding-left:0;margin:0 0 8px}
+  .step{display:flex;gap:11px;padding:11px 13px;border-bottom:1px solid var(--line);align-items:flex-start}
+  .step:last-child{border-bottom:none}
+  .step.ruled{background:var(--outbg)}
+  .step.found{background:var(--foundbg)}
+  .stepwrap{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:14px}
+  .num{font-family:var(--mono);font-size:11px;color:var(--amber);padding-top:2px;min-width:16px;font-weight:700}
+  .step.ruled .num{color:var(--faint)}
+  .body{flex:1;min-width:0}
+  .body .t{font-size:13px;line-height:1.5}
+  .step.ruled .body .t{color:var(--faint);text-decoration:line-through}
+  .tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--faint);
+       border:1px solid var(--line);border-radius:3px;padding:1px 5px;margin-left:6px;vertical-align:1px}
+  .fix{font-size:12px;color:var(--teal);margin-top:7px;line-height:1.5;display:none}
+  .step.found .fix{display:block}
+  .acts{display:flex;gap:5px;padding-top:1px}
+  .mini{font-family:var(--mono);font-size:10px;border:1px solid var(--line);background:none;color:var(--faint);
+        border-radius:4px;padding:4px 7px;cursor:pointer;line-height:1;white-space:nowrap}
+  .mini:hover{color:var(--text);border-color:var(--faint)}
+  .mini.on-out{background:var(--out);border-color:var(--out);color:#fff}
+  .mini.on-found{background:var(--found);border-color:var(--found);color:#fff}
+  .mini:focus-visible{outline:2px solid var(--teal);outline-offset:1px}
+
+  .hint{font-size:12px;color:var(--faint);font-style:italic;margin:0 0 18px}
+
+  /* generic cards */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:12px}
+  .card h3{font-size:13px;margin:0 0 7px;font-weight:700}
+  .card p{font-size:12.5px;color:var(--dim);margin:0;line-height:1.55}
+  .card p + p{margin-top:7px}
+  .say{color:var(--teal)}
+  .dont{color:#C98080}
+
+  table{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:12.5px}
+  th{background:var(--panel2);text-align:left;padding:8px 10px;font-size:11px;letter-spacing:.5px;border:1px solid var(--line)}
+  td{padding:8px 10px;border:1px solid var(--line);vertical-align:top;line-height:1.5;color:var(--dim)}
+  td b{color:var(--text)}
+  td.k{font-family:var(--mono);color:var(--amber);white-space:nowrap;font-size:11px}
+
+  /* matrix */
+  .mx{display:grid;grid-template-columns:auto repeat(3,1fr);gap:5px;margin-bottom:10px}
+  .mx .h{font-family:var(--mono);font-size:10px;color:var(--faint);text-transform:uppercase;letter-spacing:1px;
+         display:flex;align-items:center;justify-content:center;text-align:center;padding:5px}
+  .mx .rh{font-family:var(--mono);font-size:10px;color:var(--faint);display:flex;align-items:center;padding:5px;max-width:118px;line-height:1.35}
+  .cell{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:9px 7px;cursor:pointer;text-align:center;color:var(--text)}
+  .cell:hover{border-color:var(--faint)}
+  .cell[aria-pressed="true"]{border-color:var(--amber);background:var(--panel2)}
+  .cell .p{font-family:var(--mono);font-weight:700;font-size:14px}
+  .cell .ex{font-size:10.5px;color:var(--faint);margin-top:3px;line-height:1.35}
+  .p1{color:#E86B5C}.p2{color:var(--amber)}.p3{color:#D9C86A}.p4{color:var(--teal)}.p5{color:var(--faint)}
+  .cell:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+  /* case note */
+  .note{position:sticky;top:66px;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  @media(max-width:900px){.note{position:static}}
+  .note-h{background:var(--panel2);padding:9px 13px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
+  .note-h .dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+  .note-h span{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--dim);text-transform:uppercase;flex:1}
+  .note-b{padding:12px 13px}
+  .fields{display:flex;flex-direction:column;gap:7px;margin-bottom:11px}
+  .fields input{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:7px 9px;
+                color:var(--text);font-family:var(--mono);font-size:11.5px;width:100%}
+  .fields input::placeholder{color:var(--faint)}
+  .fields input:focus{outline:none;border-color:var(--teal)}
+  pre{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:10px;margin:0 0 10px;
+      font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--dim);white-space:pre-wrap;
+      max-height:290px;overflow:auto}
+  pre .hd{color:var(--amber)}
+  .note-acts{display:flex;gap:6px}
+  .btn{flex:1;font-family:var(--mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;
+       border:1px solid var(--line);background:none;color:var(--dim);border-radius:5px;padding:7px;cursor:pointer}
+  .btn:hover{color:var(--text);border-color:var(--faint)}
+  .btn.pri{background:var(--teal);border-color:var(--teal);color:#0E1420;font-weight:700}
+  .btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .saved{font-family:var(--mono);font-size:9.5px;color:var(--faint);text-align:center;margin-top:7px;min-height:12px}
+
+  .view{display:none}.view.on{display:block}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="bar"><div class="bar-in">
+    <div class="brand">PILOT <b>SUPPORT PANEL</b></div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-v="b" aria-selected="true">Diagnose</button>
+      <button class="tab" role="tab" data-v="a" aria-selected="false">Ask</button>
+      <button class="tab" role="tab" data-v="d" aria-selected="false">Classify</button>
+      <button class="tab" role="tab" data-v="c" aria-selected="false">Escalate</button>
+    </div>
+  </div></div>
+
+  <div class="grid">
+    <main>
+      <!-- ============ DIAGNOSE ============ -->
+      <section class="view on" id="v-b">
+        <p class="eyebrow">Module B</p>
+        <h1>Work the layers, top down</h1>
+        <p class="lede">Pick what the customer said. Rule each check out as you go &mdash; the case note on the right writes itself. Faults live near the top of this list far more often than the bottom, so resist jumping to the device.</p>
+        <div class="syms" id="syms"></div>
+        <div id="treebox"></div>
+
+        <h2>The layer model</h2>
+        <table>
+          <thead><tr><th style="width:38px">#</th><th style="width:150px">Layer</th><th>First place to look</th></tr></thead>
+          <tbody>
+            <tr><td class="k">1</td><td><b>Access &amp; rights</b></td><td>Failed Login Attempts, Blocked Users, Disabled Users &rarr; then the user's rights</td></tr>
+            <tr><td class="k">2</td><td><b>Contract &amp; modules</b></td><td>Is the module on the contract? Menu actions depend on it &mdash; a missing button is usually this, not a bug</td></tr>
+            <tr><td class="k">3</td><td><b>Interface &amp; filters</b></td><td>List filters, group selection, columns, date range</td></tr>
+            <tr><td class="k">4</td><td><b>Object config</b></td><td>Object card, tariff, device ID/type, temporary blocking</td></tr>
+            <tr><td class="k">5</td><td><b>Sensor config</b></td><td>Field mapping &rarr; conversion formula &rarr; calibration table, in that order</td></tr>
+            <tr><td class="k">6</td><td><b>Device &amp; data</b></td><td>Sensors tracing, satellite count, Connection Lost, Devices offline</td></tr>
+            <tr><td class="k">7</td><td><b>Relay</b></td><td>Statistics: Queue, Err, Send, Ack</td></tr>
+          </tbody>
+        </table>
+        <p class="hint">Affects everything &rarr; 1&ndash;2. One object &rarr; 4&ndash;6. One screen &rarr; 3. Fine here, missing downstream &rarr; 7.</p>
+
+        <div class="card">
+          <h3>&ldquo;It works for me&rdquo; proves nothing</h3>
+          <p>Support logins carry far more rights than the customer's. A large share of rights cases are invisible from your session. Reproduce as the user, or read that user's rights directly.</p>
+        </div>
+        <div class="card">
+          <h3>Fix the config, then fix the history</h3>
+          <p>Correcting a formula or calibration table only changes <b>new</b> data. Yesterday's report stays wrong until you run <b>Recalculate</b> for the affected period. Saying &ldquo;fixed&rdquo; without it earns a callback.</p>
+        </div>
+        <div class="card">
+          <h3>When to stop</h3>
+          <p>All applicable layers worked and nothing found &middot; the fix needs rights you don't have &middot; more than one customer is reporting it, which makes it an incident, not a ticket.</p>
+        </div>
+      </section>
+
+      <!-- ============ ASK ============ -->
+      <section class="view" id="v-a">
+        <p class="eyebrow">Module A</p>
+        <h1>Get facts, not the story</h1>
+        <p class="lede">The customer reports a symptom. You need facts. Work the ladder top to bottom &mdash; scope first, because scope is what tells you which layer to start on.</p>
+        <table>
+          <thead><tr><th style="width:110px">Ask for</th><th>Say something like</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Scope</td><td>&ldquo;Is it this one vehicle, or all of them?&rdquo;</td></tr>
+            <tr><td class="k">Timeline</td><td>&ldquo;When did you last see it working? Did anything change around then?&rdquo; <br><span style="color:var(--faint)">Then check Audit history rather than taking &ldquo;nothing changed&rdquo; at face value.</span></td></tr>
+            <tr><td class="k">Reproduce</td><td>&ldquo;Can you open the list right now and tell me what you see next to the vehicle name?&rdquo;</td></tr>
+            <tr><td class="k">Identity</td><td>&ldquo;Which login are you using? What's the object name or IMEI?&rdquo;</td></tr>
+            <tr><td class="k">Expectation</td><td>&ldquo;What number were you expecting to see there?&rdquo;</td></tr>
+          </tbody>
+        </table>
+        <div class="card">
+          <h3>Ask open, then narrow</h3>
+          <p><span class="say">&ldquo;Tell me what you're seeing.&rdquo;</span> &mdash; lets them describe reality.</p>
+          <p><span class="dont">&ldquo;Is the ignition sensor configured?&rdquo;</span> &mdash; makes them answer your theory instead.</p>
+        </div>
+
+        <h2>Difficult moments</h2>
+        <div class="card">
+          <h3>They're angry</h3>
+          <p>Let them finish. Don't defend the product mid-sentence.</p>
+          <p><span class="say">&ldquo;You've had no tracking on that vehicle for two days &mdash; I understand why that's a problem.&rdquo;</span></p>
+          <p><span class="dont">&ldquo;I understand you're frustrated.&rdquo;</span> &mdash; reads as scripted. Acknowledge the impact, not the emotion.</p>
+        </div>
+        <div class="card">
+          <h3>You don't know</h3>
+          <p><span class="say">&ldquo;I don't know yet. I'm going to check with [team] and come back to you by [time].&rdquo;</span></p>
+          <p>Never guess out loud. A wrong guess from support becomes a fact in the customer's head.</p>
+        </div>
+        <div class="card">
+          <h3>It's their fault</h3>
+          <p>Never say so. Say what fixes it.</p>
+          <p><span class="say">&ldquo;The notification's time window was set to weekdays only &mdash; let's widen that now, and I'll show you where it lives.&rdquo;</span></p>
+        </div>
+        <div class="card">
+          <h3>The answer is no</h3>
+          <p>State the no, the reason, and the nearest alternative.</p>
+          <p><span class="say">&ldquo;That action isn't available because the module isn't on your contract. What I can do is&hellip;&rdquo;</span></p>
+        </div>
+        <div class="card">
+          <h3>You need a minute</h3>
+          <p>Silence reads as incompetence. Narrate instead.</p>
+          <p><span class="say">&ldquo;I'm opening Sensors tracing to see what the device actually sent &mdash; give me about a minute.&rdquo;</span></p>
+        </div>
+      </section>
+
+      <!-- ============ CLASSIFY ============ -->
+      <section class="view" id="v-d">
+        <p class="eyebrow">Module D</p>
+        <h1>Classify before you queue</h1>
+        <p class="lede">Three kinds of ticket, not one. They have different owners, different clocks, and different definitions of done.</p>
+        <table>
+          <thead><tr><th style="width:130px">Type</th><th>Means</th><th style="width:190px">Done when</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Incident</td><td>Something is broken. Unplanned interruption or degradation.</td><td>Service restored &mdash; not necessarily explained.</td></tr>
+            <tr><td class="k">Service request</td><td>Something is wanted. Nothing is broken. Module activation, tokens, new users, tariff changes.</td><td>Delivered via a standard, approved path.</td></tr>
+            <tr><td class="k">Problem</td><td>The cause behind repeated incidents. Same symptom three times = this.</td><td>Cause removed, or written up as a known error.</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Priority = impact &times; urgency</h2>
+        <p class="hint">Not who shouts loudest. Tap a cell to set it on the case note.</p>
+        <div class="mx" id="mx"></div>
+        <div class="card">
+          <h3>The telematics twist</h3>
+          <p>Some of this data has a <b>physical clock</b> attached. Refrigerated cargo spoils. A stolen vehicle moves. A reporting window closes. Ask: <b>what happens in the real world while this stays broken?</b> A sensor fault that looks like P4 on a reefer trailer is a P2.</p>
+        </div>
+        <div class="card">
+          <h3>Write it down while you solve it</h3>
+          <p>Title the article in the <b>customer's</b> words &mdash; &ldquo;fuel gauge shows zero&rdquo;, not &ldquo;sensor field mapping mismatch&rdquo;. The next person searching is a customer or a new hire, and neither knows your vocabulary.</p>
+        </div>
+      </section>
+
+      <!-- ============ ESCALATE ============ -->
+      <section class="view" id="v-c">
+        <p class="eyebrow">Module C</p>
+        <h1>Hand over cleanly</h1>
+        <p class="lede">Escalating early with good notes is better work than sitting on a ticket for a day. The expensive habit in 1st line is over-holding, not over-escalating.</p>
+        <div class="card">
+          <h3>Before you send it</h3>
+          <p>The test: could the next engineer start work without asking you a single question? Your case note should already carry the customer and contract, the object or IMEI, the exact symptom with timestamps, what Sensors tracing showed, what Audit history showed, what you ruled out, and what the customer has been told.</p>
+        </div>
+
+        <h2>Who owns what</h2>
+        <table>
+          <thead><tr><th style="width:150px">Team</th><th>Send them</th></tr></thead>
+          <tbody>
+            <tr><td class="k">2nd line</td><td>Anything where you've worked every applicable layer and found nothing</td></tr>
+            <tr><td class="k">Development</td><td>Reproducible bugs &mdash; not configuration questions</td></tr>
+            <tr><td class="k">Installers</td><td>Device never reported, wiring, repeated drops at the same location</td></tr>
+            <tr><td class="k">Integrations</td><td>Layer 7: endpoints, Queue/Err/Ack, external systems</td></tr>
+            <tr><td class="k">Sales</td><td>Tariff, upgrades, module activation, anything commercial</td></tr>
+            <tr><td class="k">Finance</td><td>Payments, debits, blocked for non-payment</td></tr>
+          </tbody>
+        </table>
+        <p class="hint">Contacts, channels and triggers are company-specific &mdash; fill these in from the prep list before this page is any use.</p>
+
+        <div class="card">
+          <h3>Stop and route, don't help</h3>
+          <p>A driver asking what data is held on them, or asking for it deleted, is a data-subject request with a legal clock &mdash; not a normal ticket.</p>
+          <p>A manager asking where a named driver was on Saturday puts you inside an employment dispute. They may well be entitled to it; you are not the person who decides that.</p>
+          <p>Deleting an object destroys its history and can't be undone. Never action a deletion from a phone call alone.</p>
+        </div>
+        <div class="card">
+          <h3>Several customers, same symptom</h3>
+          <p>That's an incident, not a ticket. Escalate immediately and stop debugging.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ CASE NOTE ============ -->
+    <aside>
+      <div class="note">
+        <div class="note-h"><div class="dot"></div><span>Case note</span></div>
+        <div class="note-b">
+          <div class="fields">
+            <input id="f-cust" placeholder="Customer / contract" autocomplete="off">
+            <input id="f-obj" placeholder="Object name / IMEI" autocomplete="off">
+          </div>
+          <pre id="out">No symptom selected yet.</pre>
+          <div class="note-acts">
+            <button class="btn pri" id="copy">Copy</button>
+            <button class="btn" id="fresh">New case</button>
+          </div>
+          <div class="saved" id="saved"></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+const TREES = [
+  { id:"login", q:"I can\u2019t log in", lay:"1\u20132", steps:[
+    {t:"Admin \u2192 Failed Login Attempts. Are their attempts arriving at all?", l:1,
+     fix:"No attempts logged = they aren\u2019t reaching the login they think they are. Wrong URL, wrong portal, or a cached page."},
+    {t:"Blocked Users and Disabled Users.", l:1, fix:"Unblock, or find out who blocked them and why."},
+    {t:"Password Reset history \u2014 someone may have reset it already.", l:1},
+    {t:"Is the contract itself blocked for non-payment?", l:2, fix:"Layer 2. Route to finance rather than fixing the login."},
+    {t:"Is it just them, or their whole company?", l:1, fix:"Everyone = layer 2. One person = layer 1."}
+  ]},
+  { id:"gone", q:"An object disappeared from my list", lay:"1\u20134", steps:[
+    {t:"Does it exist in the admin panel at all?", l:4},
+    {t:"Does this user have rights to it? Check their rights, not your view.", l:1,
+     fix:"Master trap. It may never have been theirs to see."},
+    {t:"Is a filter, group selection or column config hiding it?", l:3},
+    {t:"Is Temporary blocking switched on?", l:4,
+     fix:"Not a fault. A colleague may have suspended it to stop the subscription charge \u2014 seasonal equipment does this."},
+    {t:"Was it moved to another contract, or deleted?", l:4,
+     fix:"Deleting removes all data and history. Restoring needs a system administrator."}
+  ]},
+  { id:"numbers", q:"The fuel / mileage numbers are wrong", lay:"5\u20136", steps:[
+    {t:"Open Sensors tracing. Is data arriving, and what is the raw value?", l:6,
+     fix:"This one step decides everything below it."},
+    {t:"Raw value wrong or absent?", l:6, fix:"Layer 6 \u2014 the device. Stop tuning formulas."},
+    {t:"Raw value fine but display wrong \u2192 check the field mapping first.", l:5},
+    {t:"Then the conversion formula \u2014 before the calibration table.", l:5,
+     fix:"The formula runs the moment data arrives, before calibration. Debugging the table while a formula mangles its input is wasted time. Use the Test button rather than reasoning about it."},
+    {t:"Then the calibration table: Select nearest value, and Calibration first.", l:5,
+     fix:"These two switches quietly change results \u2014 a common cause of \u201cclose but wrong\u201d."},
+    {t:"Numbers intermittently missing rather than wrong? Look for a division in the formula.", l:5,
+     fix:"If the divisor can arrive as 0 or undefined the calculation errors. Guard it with a conditional."},
+    {t:"Was it ever right? Check Audit history for a change on that date.", l:5,
+     fix:"Never right = configuration. Recently wrong = a change, or the device."},
+    {t:"After fixing: run Recalculate for the affected period.", l:5,
+     fix:"Otherwise the customer\u2019s historical reports stay wrong and they call back."}
+  ]},
+  { id:"notif", q:"I\u2019m not getting notifications", lay:"2", steps:[
+    {t:"Is the Notifications module active on the contract?", l:2,
+     fix:"Without it there\u2019s no Notifications tab at all."},
+    {t:"Does the notification actually exist?", l:2},
+    {t:"Is the object or tag selected in it?", l:2,
+     fix:"A vehicle added later isn\u2019t covered automatically."},
+    {t:"Check the time window \u2014 time zone, days, intervals.", l:2,
+     fix:"A rule set for weekdays 09:00\u201318:00 is silent on a Saturday and looks broken. The most-missed cause."},
+    {t:"Check the geofence scope: anywhere / in selected zones / outside them.", l:2},
+    {t:"Check the \u201cfor all users\u201d flag.", l:2,
+     fix:"If off, colleagues don\u2019t get it \u2014 exactly the shape of \u201cmy manager gets them and I don\u2019t\u201d."},
+    {t:"Check the delivery method: SMS, push, email, alert, control room, webhook, command, Telegram.", l:2},
+    {t:"For email: is the address verified?", l:2,
+     fix:"Unverified addresses silently receive nothing."},
+    {t:"Spam folder.", l:2}
+  ]},
+  { id:"nodata", q:"No data from a vehicle", lay:"4\u20136", steps:[
+    {t:"Sensors tracing \u2014 when was the last reception? What\u2019s the satellite count?", l:6},
+    {t:"Connection Lost report \u2014 when, how long, and at what address?", l:6,
+     fix:"Repeated drops at the same location is an installation or coverage story, not a platform one."},
+    {t:"Is Temporary blocking on?", l:4, fix:"Free to check, and not a fault."},
+    {t:"Does the device ID / IMEI match the physical unit? Is the device type right?", l:4},
+    {t:"Has it ever reported?", l:6, fix:"Never = configuration or installation. Stopped = power, connection, or hardware."}
+  ]},
+  { id:"relay", q:"Data\u2019s fine in PILOT but missing in our own system", lay:"7", steps:[
+    {t:"Is the endpoint enabled, and is object relay enabled?", l:7},
+    {t:"External ID, Host, Port, Format, Path, credentials \u2014 all correct?", l:7},
+    {t:"Statistics: is Queue growing?", l:7,
+     fix:"Packets are accumulating and can\u2019t be delivered. The external server is unavailable, settings are wrong, or the far side is refusing the connection."},
+    {t:"Statistics: is Err climbing?", l:7,
+     fix:"Check availability, authentication, protocol, schedule, and any restrictions on the receiving side."},
+    {t:"Statistics: Send rising but Ack stuck at zero?", l:7,
+     fix:"We\u2019re transmitting and they never confirm. Protocol, External ID, JSON config, credentials."},
+    {t:"New object not relaying?", l:7,
+     fix:"Is an Auto add rule enabled for that contract, and was the object created after the rule?"},
+    {t:"No statistics at all?", l:7,
+     fix:"Usually benign \u2014 nothing sent yet, period too short, or the endpoint is new."}
+  ]}
+];
+
+const MX = [
+  { r:"Impact: high", sub:"whole contract / many customers", cells:[
+    {p:"P1", ex:"Nobody at a contract can log in"},
+    {p:"P2", ex:"Reports wrong fleet-wide, fleet still runs"},
+    {p:"P3", ex:"Cosmetic, affects everyone"}]},
+  { r:"Impact: medium", sub:"a group, or a VIP", cells:[
+    {p:"P2", ex:"Reefer temperature alerts not firing"},
+    {p:"P3", ex:"One depot\u2019s geofence reports wrong"},
+    {p:"P4", ex:"A group wants a column added"}]},
+  { r:"Impact: low", sub:"one user / one object", cells:[
+    {p:"P3", ex:"One vehicle dark during a theft"},
+    {p:"P4", ex:"One sensor mis-calibrated"},
+    {p:"P5", ex:"How-to question"}]}
+];
+
+let S = { sym:null, state:{}, cust:"", obj:"", pri:null };
+
+/* ---------- render ---------- */
+const symsEl = document.getElementById('syms');
+TREES.forEach(t => {
+  const b = document.createElement('button');
+  b.className = 'sym'; b.setAttribute('aria-pressed','false'); b.dataset.id = t.id;
+  b.innerHTML = `<span class="q">\u201c${t.q}\u201d</span><span class="lay">layer ${t.lay}</span>`;
+  b.addEventListener('click', () => { S.sym = S.sym === t.id ? null : t.id; S.state = {}; S.pri = S.pri; renderTree(); save(); });
+  symsEl.appendChild(b);
+});
+
+function renderTree(){
+  document.querySelectorAll('.sym').forEach(el =>
+    el.setAttribute('aria-pressed', String(el.dataset.id === S.sym)));
+  const box = document.getElementById('treebox');
+  box.innerHTML = '';
+  if(!S.sym){ note(); return; }
+  const t = TREES.find(x => x.id === S.sym);
+  const wrap = document.createElement('div');
+  wrap.className = 'stepwrap';
+  t.steps.forEach((st, i) => {
+    const k = S.sym + ':' + i;
+    const v = S.state[k] || '';
+    const row = document.createElement('div');
+    row.className = 'step' + (v === 'out' ? ' ruled' : v === 'found' ? ' found' : '');
+    row.innerHTML = `
+      <div class="num">${i+1}</div>
+      <div class="body">
+        <div class="t">${st.t}<span class="tag">L${st.l}</span></div>
+        ${st.fix ? `<div class="fix">${st.fix}</div>` : ''}
+      </div>
+      <div class="acts">
+        <button class="mini ${v==='out'?'on-out':''}" data-k="${k}" data-s="out" title="Ruled out">\u2715</button>
+        <button class="mini ${v==='found'?'on-found':''}" data-k="${k}" data-s="found" title="This is it">\u2713</button>
+      </div>`;
+    wrap.appendChild(row);
+  });
+  box.appendChild(wrap);
+  box.querySelectorAll('.mini').forEach(b => b.addEventListener('click', () => {
+    const k = b.dataset.k, s = b.dataset.s;
+    S.state[k] = S.state[k] === s ? '' : s;
+    renderTree(); save();
+  }));
+  note();
+}
+
+const mxEl = document.getElementById('mx');
+function renderMx(){
+  mxEl.innerHTML = '<div class="h"></div><div class="h">Urgency high</div><div class="h">Medium</div><div class="h">Low</div>';
+  MX.forEach((row, ri) => {
+    const rh = document.createElement('div');
+    rh.className = 'rh'; rh.innerHTML = `<div><b style="color:var(--dim)">${row.r}</b><br>${row.sub}</div>`;
+    mxEl.appendChild(rh);
+    row.cells.forEach((c, ci) => {
+      const b = document.createElement('button');
+      b.className = 'cell'; b.dataset.id = ri + '-' + ci;
+      b.setAttribute('aria-pressed', String(S.pri && S.pri.id === ri + '-' + ci));
+      b.innerHTML = `<div class="p ${c.p.toLowerCase()}">${c.p}</div><div class="ex">${c.ex}</div>`;
+      b.addEventListener('click', () => {
+        S.pri = (S.pri && S.pri.id === b.dataset.id) ? null
+              : { id:b.dataset.id, p:c.p, why:`${row.r.replace('Impact: ','')} impact / ${['high','medium','low'][ci]} urgency` };
+        renderMx(); note(); save();
+      });
+      mxEl.appendChild(b);
+    });
+  });
+}
+
+/* ---------- case note ---------- */
+function note(){
+  const el = document.getElementById('out');
+  if(!S.sym && !S.cust && !S.obj && !S.pri){ el.textContent = 'No symptom selected yet.'; return; }
+  const L = [];
+  L.push('CASE NOTE');
+  L.push('Customer : ' + (S.cust || '\u2014'));
+  L.push('Object   : ' + (S.obj || '\u2014'));
+  if(S.sym) L.push('Reported : "' + TREES.find(t => t.id === S.sym).q + '"');
+  if(S.pri) L.push('Priority : ' + S.pri.p + '  (' + S.pri.why + ')');
+  if(S.sym){
+    const t = TREES.find(x => x.id === S.sym);
+    const out = [], found = [];
+    t.steps.forEach((st, i) => {
+      const v = S.state[S.sym + ':' + i];
+      if(v === 'out') out.push(st.t);
+      if(v === 'found') found.push(st);
+    });
+    if(out.length){ L.push(''); L.push('Checked and ruled out:'); out.forEach(o => L.push('  - ' + o)); }
+    if(found.length){
+      L.push(''); L.push('Cause found:');
+      found.forEach(f => { L.push('  * ' + f.t); if(f.fix) L.push('    > ' + f.fix); });
+    }
+    const done = out.length + found.length;
+    if(done < t.steps.length){
+      L.push(''); L.push('Still to check: ' + (t.steps.length - done) + ' of ' + t.steps.length);
+    }
+    if(!found.length && done === t.steps.length){
+      L.push(''); L.push('All layers worked, no cause found \u2192 escalate.');
+    }
+  }
+  L.push(''); L.push('Customer has been told:');
+  L.push('  ');
+  el.textContent = L.join('\n');
+}
+
+/* ---------- persistence ---------- */
+async function save(){
+  try{
+    await window.storage.set('pilot-panel-case', JSON.stringify(S), false);
+    stamp('saved ' + new Date().toLocaleTimeString());
+  }catch(e){ stamp('not saved'); }
+}
+function stamp(t){ document.getElementById('saved').textContent = t; }
+
+async function load(){
+  try{
+    const r = await window.storage.get('pilot-panel-case', false);
+    if(r && r.value) S = Object.assign(S, JSON.parse(r.value));
+  }catch(e){}
+  document.getElementById('f-cust').value = S.cust || '';
+  document.getElementById('f-obj').value = S.obj || '';
+}
+
+/* ---------- wiring ---------- */
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected','false'));
+  t.setAttribute('aria-selected','true');
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('on'));
+  document.getElementById('v-' + t.dataset.v).classList.add('on');
+}));
+
+['cust','obj'].forEach(f => document.getElementById('f-' + f).addEventListener('input', e => {
+  S[f] = e.target.value; note(); save();
+}));
+
+document.getElementById('copy').addEventListener('click', async () => {
+  const txt = document.getElementById('out').textContent;
+  try{ await navigator.clipboard.writeText(txt); stamp('copied to clipboard'); }
+  catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = txt; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); stamp('copied to clipboard'); }
+    catch(_){ stamp('select the text above to copy'); }
+    ta.remove();
+  }
+});
+
+document.getElementById('fresh').addEventListener('click', () => {
+  S = { sym:null, state:{}, cust:'', obj:'', pri:null };
+  document.getElementById('f-cust').value = '';
+  document.getElementById('f-obj').value = '';
+  renderTree(); renderMx(); note(); save();
+  stamp('new case started');
+});
+
+(async function(){
+  await load();
+  renderTree(); renderMx(); note();
+})();
+</script>
+</body>
+</html>
