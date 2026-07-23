@@ -74,7 +74,7 @@
     <p><b>Revision 4.</b> Modules A–D are a <b>supplement</b>. The two existing training plans are internal, authoritative, and correct — no flow, step, sequence or terminology from them has been altered or contradicted here. Everything below is additive.</p>
 
     <div class="box">
-      <p>Some passages draw on the public PILOT user guide. <b>Treat it as a reference, not an authority.</b> PILOT ships more than one manual, they are versioned independently, and customers may not be on the latest build — see <a href="#docmap">Documentation map</a>. Where the public guide and the internal plans differ, the plans win.</p>
+      <p>Some passages draw on the public PILOT documentation. <b>Treat it as a reference, not an authority</b> — it does not cover everything the internal plans do; see <a href="#docmap">Documentation map</a>. Where the public documentation and the internal plans differ, the plans win.</p>
       <p>Passages marked <span class="std">like this</span> are pre-filled with <b>common telematics-industry defaults</b>. They are safe starting points, not verified local facts — confirm each against your own processes before delivery. Use the <b>defaults</b> button in the header to review every one in a list. The governing rule for anything you cannot resolve or authorise yourself is simple: <b>contact your head of technical support.</b></p>
     </div>
 
@@ -184,7 +184,7 @@
     </ol>
     <div class="box good">
       <p><b>The Master status trap — teach this explicitly.</b></p>
-      <p>The user guide describes a <b>Master status</b>, granted on admin-panel login, carrying unlimited rights in the system.</p>
+      <p>The documentation describes a <b>Master status</b>, granted on admin-panel login, carrying unlimited rights in the system.</p>
       <p>Whatever it is called in your build, the operational consequence is what matters: <b>"it works for me" proves nothing about the customer's experience.</b> A large share of rights-related cases are simply invisible from a support login. Reproduce as the user, or check that user's rights directly — never conclude from your own session.</p>
     </div>
 
@@ -455,41 +455,39 @@
 
     <hr>
     <h2 id="docmap">Documentation map</h2>
-    <p>This section exists because I got this wrong once, and the mistake is an easy one to repeat. Anyone comparing the internal training plans against the public documentation needs to know the following before drawing conclusions.</p>
+    <p>Anyone comparing the internal training plans against the public documentation needs to know how the two relate before drawing conclusions.</p>
     <div class="box good">
-      <p><b>PILOT does not have "a manual." It has several, versioned independently.</b></p>
-      <p>• The <b>user guide</b> is currently at <b>v7.9</b>, with <b>7.8</b> and <b>7.7</b> kept online as archives.<br>
-      • The <b>admin panel manual is a separate document, at version 7.7.</b> It is not a stale copy of the user guide — it is its own manual with its own version line. The 3-day admin plan links to it correctly.<br>
+      <p><b>Treat the PILOT documentation as one reference for the whole platform.</b></p>
+      <p>• The <b>public documentation</b> covers the platform end to end — concepts, interface, objects, sensors, history, reports, notifications, and the administrative panel.<br>
       • There is also a <b>helpdesk portal</b> (helpdesk.pilot-gps.com), a Jira Service Management customer portal. <span class="std">By default the vendor portal is used by your head of technical support and named platform admins, not by every 1st-line engineer &mdash; raise vendor-side tickets through them.</span></p>
-      <p><b>Consequence:</b> a discrepancy between the training plans and the v7.9 user guide is not evidence of an error. It usually means you are reading the wrong manual, or a different version, or internal vocabulary that the public guide words differently.</p>
+      <p><b>Consequence:</b> a discrepancy between the training plans and the public documentation is not evidence of an error. It usually means the topic is internal knowledge the docs don't cover, or internal vocabulary the docs word differently.</p>
     </div>
 
-    <h3>Which manual answers which plan</h3>
+    <h3>What the documentation covers</h3>
     <div class="tw"><table>
-      <thead><tr><th style="width:180px">Plan</th><th>Maps to</th><th style="width:160px">Version</th></tr></thead>
+      <thead><tr><th style="width:200px">Plan</th><th>Maps to</th></tr></thead>
       <tbody>
-        <tr><td class="k">Support, 2 weeks</td><td>User guide — concepts, interface, objects, sensors, history, reports, tokens, notifications</td><td>7.9 (7.8 / 7.7 archived)</td></tr>
-        <tr><td class="k">Admin panel, 3 days</td><td>Admin panel manual — contracts, partners, finances, configurations, modules, rebranding</td><td>7.7, versioned separately</td></tr>
-        <tr><td class="k">Both</td><td>Internal knowledge with no public page — e.g. Mapping Contract, stock/warehouse account, Prepayment account type, "Address in Online Tree", mileage-by-CAN configuration</td><td>Internal — the plans are the source</td></tr>
+        <tr><td class="k">Support, 2 weeks</td><td>Public documentation — concepts, interface, objects, sensors, history, reports, tokens, notifications</td></tr>
+        <tr><td class="k">Admin panel, 3 days</td><td>Public documentation, administrative panel — contracts, partners, finances, configurations, modules, rebranding</td></tr>
+        <tr><td class="k">Both</td><td>Internal knowledge with no public page — e.g. Mapping Contract, stock/warehouse account, Prepayment account type, "Address in Online Tree", mileage-by-CAN configuration</td></tr>
       </tbody>
     </table></div>
-    <p>That third row is the important one. A significant part of both plans covers admin-panel and commercial concepts that simply are not in the public user guide. Their absence there says nothing about their correctness.</p>
+    <p>That third row is the important one. A significant part of both plans covers admin-panel and commercial concepts that simply are not in the public documentation. Their absence there says nothing about their correctness.</p>
 
     <h3>Worked example: why "/1000" is right</h3>
-    <p>Day 7 of the support plan teaches setting the formula <code>/1000</code> on a battery voltage sensor. An earlier draft of this supplement claimed 7.9 had superseded that with reusable "handlers." It has not.</p>
-    <p>The v7.9 guide's own worked example is a battery sensor reporting millivolts, converted to volts by entering <code>/1000</code> in the Conversion formula field. Simple formulas start with an arithmetic sign and the raw value is substituted automatically; complex ones start with <code>=</code> and require the value explicitly as <code>%value%</code>. Handlers are a <b>reuse mechanism</b> for applying the same conversion across many sensors — an addition alongside direct formulas, not a replacement.</p>
-    <p><b>The plan is correct. The lesson is about method:</b> absence of a statement in one version of one public manual is not evidence that an internal plan is wrong.</p>
+    <p>Day 7 of the support plan teaches setting the formula <code>/1000</code> on a battery voltage sensor. An earlier draft of this supplement claimed this had been superseded by reusable "handlers." It has not.</p>
+    <p>The documentation's own worked example is a battery sensor reporting millivolts, converted to volts by entering <code>/1000</code> in the Conversion formula field. Simple formulas start with an arithmetic sign and the raw value is substituted automatically; complex ones start with <code>=</code> and require the value explicitly as <code>%value%</code>. Handlers are a <b>reuse mechanism</b> for applying the same conversion across many sensors — an addition alongside direct formulas, not a replacement.</p>
+    <p><b>The plan is correct. The lesson is about method:</b> absence of a statement in the public documentation is not evidence that an internal plan is wrong.</p>
 
     <h3>If you do want to refresh the plans</h3>
     <p>Not corrections — optional additions, for whoever owns the material to accept or reject:</p>
     <ul>
       <li><b>Sensors tracing</b> could be mentioned in Day 4 alongside Current Track and Follow Object, since it lives in the same right-click menu and is the most useful diagnostic view in the product.</li>
       <li><b>Recalculate</b> has no home in either plan, yet it is the step that makes a sensor fix apply to historical reports.</li>
-      <li>Topics in the 7.9 guide but not in either plan, if scope ever allows: Report builder, Control room, sensor handlers, webhook notifications, the Telegram bot, Teltonika FOTA, relay/endpoints, and the mobile apps.</li>
-      <li>A <b>version check before each intake</b>: confirm which build customers are on and whether the admin manual has moved off 7.7. The plans are correct; what changes underneath them is the product.</li>
+      <li>Topics in the documentation but not in either plan, if scope ever allows: Report builder, Control room, sensor handlers, webhook notifications, the Telegram bot, Teltonika FOTA, relay/endpoints, and the mobile apps.</li>
     </ul>
     <div class="box">
-      <p><b>Standing rule for this supplement.</b> Where the public guide and the internal plans disagree, the plans win. They were written by people with access to the build, the admin panel, and the ticket history. This document has access to a website.</p>
+      <p><b>Standing rule for this supplement.</b> Where the public documentation and the internal plans disagree, the plans win. They were written by people with access to the build, the admin panel, and the ticket history. This document has access to a website.</p>
     </div>
 
     <hr>
@@ -530,7 +528,7 @@
     </ol>
 
     <hr>
-    <p style="font-size:12.5px;color:var(--dim)">Sources drawn on in this supplement: PILOT User guide v7.9 — Roles and access rights; Object menu; How to apply formulas; Sensor handlers; How to create a notification; How to set up notification delivery; Audit and Audit history; Failed Login Attempts; Connection Lost; Raw data; Recalculate; Troubleshooting; Statistics. Industry practice: ITIL 4; KCS (Consortium for Service Innovation); EDPB Guidelines 01/2020 on connected vehicles; Ghana Data Protection Act 2012 (Act 843).</p>
+    <p style="font-size:12.5px;color:var(--dim)">Sources drawn on in this supplement: PILOT documentation — Roles and access rights; Object menu; How to apply formulas; Sensor handlers; How to create a notification; How to set up notification delivery; Audit and Audit history; Failed Login Attempts; Connection Lost; Raw data; Recalculate; Troubleshooting; Statistics. Industry practice: ITIL 4; KCS (Consortium for Service Innovation); EDPB Guidelines 01/2020 on connected vehicles; Ghana Data Protection Act 2012 (Act 843).</p>
   </article>
 </div>
 
