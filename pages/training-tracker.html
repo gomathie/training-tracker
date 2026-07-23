@@ -5,25 +5,8 @@
 <title>PILOT training tracker</title>
 <link rel="stylesheet" href="../styles/shared.css">
 <link rel="stylesheet" href="training-tracker/styles.css">
-<link rel="stylesheet" href="training-tracker/gate.css">
 </head>
-<body class="locked">
-
-<!-- ─── ACCESS GATE ───────────────────────────────── -->
-<div class="gate-overlay" id="gateOverlay">
-  <div class="gate-card">
-    <img src="https://pilot-telematics.com/wp-content/themes/pilot/assets/images/logo.png" alt="PILOT logo" class="gate-logo">
-    <h2>Access required</h2>
-    <p class="gate-lead">Message the PILOT Telegram bot and send <code>/code</code> to receive an 8-character access code.</p>
-    <form id="gateForm">
-      <input id="gateInput" type="text" inputmode="latin" autocomplete="off" autocapitalize="characters"
-        spellcheck="false" maxlength="8" placeholder="XXXXXXXX" aria-label="8-character access code">
-      <button type="submit" id="gateSubmit">Unlock</button>
-    </form>
-    <p class="gate-msg" id="gateMsg"></p>
-  </div>
-</div>
-
+<body>
 <!-- ─── SITE NAV ──────────────────────────────────── -->
 <nav class="topnav" id="topnav">
   <div class="topnav-in">
@@ -71,7 +54,6 @@
   </div>
 </div>
 
-<script src="training-tracker/gate.js"></script>
 <script src="training-tracker/script.js"></script>
 <script src="../scripts/shared.js"></script>
 </body>
