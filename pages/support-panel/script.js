@@ -95,7 +95,7 @@ const symsEl = document.getElementById('syms');
 TREES.forEach(t => {
   const b = document.createElement('button');
   b.className = 'sym'; b.setAttribute('aria-pressed','false'); b.dataset.id = t.id;
-  b.innerHTML = \`<span class="q">\u201c\${t.q}\u201d</span><span class="lay">layer \${t.lay}</span>\`;
+  b.innerHTML = `<span class="q">\u201c${t.q}\u201d</span><span class="lay">layer ${t.lay}</span>`;
   b.addEventListener('click', () => { S.sym = S.sym === t.id ? null : t.id; S.state = {}; S.pri = S.pri; renderTree(); save(); });
   symsEl.appendChild(b);
 });
@@ -114,17 +114,17 @@ function renderTree(){
     const v = S.state[k] || '';
     const row = document.createElement('div');
     row.className = 'step' + (v === 'out' ? ' ruled' : v === 'found' ? ' found' : '');
-    row.innerHTML = \`
-      <div class="num">\${i+1}</div>
+    row.innerHTML = `
+      <div class="num">${i+1}</div>
       <div class="body">
-        <div class="t">\${st.t}<span class="tag">L\${st.l}</span></div>
-        \${st.fix ? \`<div class="fix">\${st.fix}</div>\` : ''}
+        <div class="t">${st.t}<span class="tag">L${st.l}</span></div>
+        ${st.fix ? `<div class="fix">${st.fix}</div>` : ''}
         <div class="acts">
-          <button class="mini\${v==='out'?' on-out':''}" data-k="\${k}" data-v="out">Ruled out</button>
-          \${st.fix ? \`<button class="mini\${v==='found'?' on-found':''}" data-k="\${k}" data-v="found">Cause found</button>\` : ''}
+          <button class="mini${v==='out'?' on-out':''}" data-k="${k}" data-v="out">Ruled out</button>
+          ${st.fix ? `<button class="mini${v==='found'?' on-found':''}" data-k="${k}" data-v="found">Cause found</button>` : ''}
         </div>
       </div>
-    \`;
+    `;
     wrap.appendChild(row);
   });
   box.appendChild(wrap);
@@ -143,12 +143,12 @@ function renderMx(){
   const b = document.getElementById('mx');
   b.innerHTML = '<div class="h"></div><div class="h">Urgency: high<br>now / blocking</div><div class="h">Urgency: medium<br>today / workaround</div><div class="h">Urgency: low<br>next week</div>';
   MX.forEach(r => {
-    b.innerHTML += \`<div class="rh"><b>\${r.r}</b><br>\${r.sub}</div>\`;
+    b.innerHTML += `<div class="rh"><b>${r.r}</b><br>${r.sub}</div>`;
     r.cells.forEach((c, i) => {
       const is = S.pri && S.pri.p === c.p && S.pri.ex === c.ex;
-      b.innerHTML += \`<div class="cell" aria-pressed="\${is}" data-r="\${r.r}" data-c="\${i}" data-p="\${c.p}" data-ex="\${c.ex}">
-        <div class="\${c.p.toLowerCase()} p">\${c.p}</div><div class="ex">\${c.ex}</div>
-      </div>\`;
+      b.innerHTML += `<div class="cell" aria-pressed="${is}" data-r="${r.r}" data-c="${i}" data-p="${c.p}" data-ex="${c.ex}">
+        <div class="${c.p.toLowerCase()} p">${c.p}</div><div class="ex">${c.ex}</div>
+      </div>`;
     });
   });
   b.querySelectorAll('.cell').forEach(c => {
